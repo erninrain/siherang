@@ -53,7 +53,11 @@ class _Beranda extends State<Beranda>{
       body:loading == true ? _buildProgressIndicator():  ResponsiveContainer(
         widthPercent: 100,
         heightPercent: 100,
-        child: _body(),
+        child: ListView(
+          children: <Widget>[
+            _body()
+          ],
+        ),
       ),
     );
 
@@ -65,14 +69,7 @@ class _Beranda extends State<Beranda>{
         children: <Widget>[
           Padding(padding: EdgeInsets.only(top: 40),),
           _slider(),
-          ListView(
-            scrollDirection: Axis.vertical,
-            children: <Widget>[
               _tentang()
-            ],
-          ),
-
-
         ],
     );
   }
