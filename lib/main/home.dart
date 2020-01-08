@@ -203,7 +203,7 @@ class _Beranda extends State<Beranda>{
             onTap: () {
               Navigator.push(context, SlideRightRoute(page: ArtikelPage(
                   id: total[itemIndex]['id'],
-                  judul: Judul = 'Pojok Warga LH',
+                  judul: Judul = 'Pojok Warta LH',
                   tipe: 1)));
               print('ok');
             },

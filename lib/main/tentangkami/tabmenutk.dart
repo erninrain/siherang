@@ -45,7 +45,8 @@ class _MenuTk extends State<MenuTk>  {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('Tentang Kami', textAlign: TextAlign.center,),
+        title: ResponsiveContainer(widthPercent: 60,heightPercent: 4.5, child: Text('Tentang Kami', style: TextStyle(fontWeight: FontWeight.bold, fontSize: 22), textAlign: TextAlign.center,),),
+        elevation: 0,
         backgroundColor: ColorPalette.underlineTextField,
       ),
       body:_menu(), // This trailing comma makes auto-formatting nicer for build methods.

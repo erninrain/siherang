@@ -92,6 +92,7 @@ class _ArtikelPage extends State<ArtikelPage>{
                       heightPercent: 30,
                       child: _foto(),
                     ),
+                    Padding(padding: EdgeInsets.only(top: 20),),
                     _judul(),
                     _icon(),
                     _padding(),
@@ -120,10 +121,11 @@ class _ArtikelPage extends State<ArtikelPage>{
   _foto(){
     return widget.tipe == 1 ? FadeInImage.assetNetwork(
       image:'http://dlh-serangkota.com/upload/artikel/'+ Foto.toString(),
-      imageScale: 1.0,
       placeholder: 'asset/img/loading.gif',
+      fit: BoxFit.cover,
     ) : FadeInImage.assetNetwork(
     image:'http://dlh-serangkota.com/upload/pengumuman/'+ Foto.toString(),
+    fit: BoxFit.cover,
     placeholder: 'asset/img/loading.gif',
     );
   }

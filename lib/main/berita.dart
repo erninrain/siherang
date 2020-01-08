@@ -181,7 +181,7 @@ class _BeritaPage extends State<BeritaPage> with SingleTickerProviderStateMixin{
               onTap: () {
                 Navigator.push(context, SlideRightRoute(page: ArtikelPage(
                     id: Peng[index]['id'],
-                    judul: Judul = 'Pojok Warga LH',
+                    judul: Judul = 'Pojok Warta LH',
                     tipe: 1)));
                 print('ok');
               },
@@ -230,8 +230,8 @@ class _BeritaPage extends State<BeritaPage> with SingleTickerProviderStateMixin{
                           decoration: new BoxDecoration(
                             borderRadius: new BorderRadius.circular(5),
                             image: new DecorationImage(
-                              image: NetworkImage('http://dlh-serangkota.com/upload/artikel/' +
-                                  Peng[index]['foto'], scale: 1.0)
+                              image: NetworkImage('http://dlh-serangkota.com/upload/artikel/' + Peng[index]['foto'], scale: 1.0),
+                              fit: BoxFit.cover
                             )
                           ),
                         ),
@@ -305,10 +305,15 @@ class _BeritaPage extends State<BeritaPage> with SingleTickerProviderStateMixin{
                     widthPercent: 35,
                     heightPercent: 100,
                     alignment: Alignment.topLeft,
-                    child: FadeInImage.assetNetwork(
-                      image: 'http://dlh-serangkota.com/upload/pengumuman/' +
-                          total[index]['foto'],
-                      placeholder: 'asset/img/loading.gif',
+                    child: Container(
+                      alignment: Alignment.center,
+                      decoration: new BoxDecoration(
+                          borderRadius: new BorderRadius.circular(5),
+                          image: new DecorationImage(
+                              image: NetworkImage('http://dlh-serangkota.com/upload/pengumuman/' + total[index]['foto'], scale: 1.0),
+                              fit: BoxFit.cover
+                          )
+                      ),
                     ),
                   ),
 
