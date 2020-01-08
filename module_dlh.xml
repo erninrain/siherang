@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project name="module_dlh" default="compile.module.dlh">
+  <dirname property="module.dlh.basedir" file="${ant.file.module_dlh}"/>
+  
+  <property name="module.jdk.home.dlh" value=""/>
+  <property name="module.jdk.bin.dlh" value=""/>
+  <property name="module.jdk.classpath.dlh" value=""/>
+  
+  <property name="compiler.args.dlh" value="-encoding UTF-8 -source 8 -target 8 ${compiler.args}"/>
+  
+  <property name="dlh.output.dir" value="${module.dlh.basedir}/out/production/dlh"/>
+  <property name="dlh.testoutput.dir" value="${module.dlh.basedir}/out/test/dlh"/>
+  
+  <path id="dlh.module.bootclasspath">
+    <!-- Paths to be included in compilation bootclasspath -->
+  </path>
+  
+  <path id="dlh.module.production.classpath">
+    <path refid="library.dart_sdk.classpath"/>
+    <path refid="library.dart_packages.classpath"/>
+    <path refid="library.flutter_plugins.classpath"/>
+  </path>
+  
+  <path id="dlh.runtime.production.module.classpath">
+    <pathelement location="${dlh.output.dir}"/>
+    <path refid="library.dart_sdk.classpath"/>
+    <path refid="library.dart_packages.classpath"/>
+    <path refid="library.flutter_plugins.classpath"/>
+  </path>
+  
+  <path id="dlh.module.classpath">
+    <pathelement location="${dlh.output.dir}"/>
+    <path refid="library.dart_sdk.classpath"/>
+    <path refid="library.dart_packages.classpath"/>
+    <path refid="library.flutter_plugins.classpath"/>
+  </path>
+  
+  <path id="dlh.runtime.module.classpath">
+    <pathelement location="${dlh.testoutput.dir}"/>
+    <pathelement location="${dlh.output.dir}"/>
+    <path refid="library.dart_sdk.classpath"/>
+    <path refid="library.dart_packages.classpath"/>
+    <path refid="library.flutter_plugins.classpath"/>
+  </path>
+  
+  
+  <patternset id="excluded.from.module.dlh">
+    <patternset refid="ignored.files"/>
+  </patternset>
+  
+  <patternset id="excluded.from.compilation.dlh">
+    <patternset refid="excluded.from.module.dlh"/>
+  </patternset>
+  
+  
+  <target name="compile.module.dlh" depends="compile.module.dlh.production,compile.module.dlh.tests" description="Compile module dlh"/>
+  
+  <target name="compile.module.dlh.production" depends="register.custom.compilers" description="Compile module dlh; production classes"/>
+  
+  <target name="compile.module.dlh.tests" depends="register.custom.compilers,compile.module.dlh.production" description="compile module dlh; test classes" unless="skip.tests"/>
+  
+  <target name="clean.module.dlh" description="cleanup module">
+    <delete dir="${dlh.output.dir}"/>
+    <delete dir="${dlh.testoutput.dir}"/>
+  </target>
+</project>
