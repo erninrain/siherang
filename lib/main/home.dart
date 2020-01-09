@@ -7,6 +7,9 @@ import 'package:dlh/main/akun.dart';
 import 'package:dlh/main/berita.dart';
 import 'package:dlh/main/Link.dart';
 import 'package:dlh/main/contoh.dart';
+import 'package:dlh/main/dokling/amdal.dart';
+import 'package:dlh/main/dokling/sppl.dart';
+import 'package:dlh/main/dokling/ukl.dart';
 import 'package:dlh/main/informasi_data/infodata.dart';
 import 'package:dlh/main/tentangkami/tabmenutk.dart';
 import 'package:flutter/cupertino.dart';
@@ -39,7 +42,7 @@ class _Beranda extends State<Beranda>{
       final response = await http.get(linknya.urlbase + "app/artikel?page=1" );
       var jsson = jsonDecode(response.body);
       var data = jsson['data']['data'];
-      print(data);
+      print('home');
       setState(() {
         loading = false;
         total.addAll(data);
@@ -119,21 +122,21 @@ class _Beranda extends State<Beranda>{
             children: <Widget>[
               FlatButton(
                 onPressed: ()async{
-                  Navigator.push(context, SlideRightRoute(page: MenuTk()));
+                  Navigator.push(context, SlideRightRoute(page: SpplPage(ur: 'https://dlh-serangkota.com/mobile/sppl', tit: 'SPPL')));
                 },
                 padding: EdgeInsets.all(0),
                 child: _menu(ikon=Icons.border_color,nmmenu='SPPL'),
               ),
               FlatButton(
                 onPressed: ()async{
-                  Navigator.push(context, SlideRightRoute(page: LinkPage(ur: 'https://dlh-serangkota.com/mobile/cilowong', tit: 'Cilowong',)));
+                  Navigator.push(context, SlideRightRoute(page: uklPage(ur: 'https://dlh-serangkota.com/mobile/uklupl', tit: 'UKL UPL',)));
                 },
                 padding: EdgeInsets.all(0),
                 child: _menu(ikon=Icons.view_list,nmmenu='UKL UPL'),
               ),
               FlatButton(
                 onPressed: ()async{
-                  Navigator.push(context, SlideRightRoute(page: LinkPage(ur: 'https://dlh-serangkota.com/mobile/data', tit: 'Informasi Data',)));
+                  Navigator.push(context, SlideRightRoute(page: amdalPage(ur: 'https://dlh-serangkota.com/mobile/amdal', tit: 'AMDAL',)));
                 },
                 padding: EdgeInsets.all(0),
                 child: _menu(ikon=Icons.wb_auto,nmmenu='AMDAL'),

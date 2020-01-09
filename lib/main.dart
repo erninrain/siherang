@@ -3,6 +3,7 @@ import 'dart:convert';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_webview_plugin/flutter_webview_plugin.dart';
+import 'package:responsive_container/responsive_container.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'dart:async';
 
@@ -82,11 +83,17 @@ class _SplashScreenPageState extends State<SplashScreenPage>{
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: <Widget>[
-            Image.asset(
-              "asset/s1.png",
-              width: double.infinity,
-              height: 350.0,
+            ResponsiveContainer(
+              widthPercent: 80,
+              heightPercent: 40,
+              child: Image.asset(
+                "asset/s1.png",
+                  fit: BoxFit.cover,
+              ),
             ),
+            Padding(padding: EdgeInsets.only(top: 15)),
+            Text('SI HERANG', textAlign: TextAlign.center, style: TextStyle(fontSize: 28, color: ColorPalette.underlineTextField, fontWeight: FontWeight.bold),),
+            Padding(padding: EdgeInsets.only(top: 25)),
             _buildProgressIndicator()
           ],
         ),

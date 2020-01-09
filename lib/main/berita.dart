@@ -107,13 +107,7 @@ class _BeritaPage extends State<BeritaPage> with SingleTickerProviderStateMixin{
     knt = TabController(vsync: this, length: 2);
   }
 
-  @override
-  void dispose() {
-    _scrollController.removeListener(_incrementCounter);
-    _scroll2Controller.removeListener(_incrementpe);
-    super.dispose();
-    
-  }
+
 
   @override
   Widget build(BuildContext context) {

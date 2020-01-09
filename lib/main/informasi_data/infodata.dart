@@ -38,6 +38,7 @@ class _InfoData extends State<InfoData>{
       if(_scroll2Controller.position.pixels == _scroll2Controller.position.maxScrollExtent)
         _incrementpe();
     });
+
   }
 
   Future<void> _incrementpe() async {
@@ -71,47 +72,28 @@ class _InfoData extends State<InfoData>{
   Future<void> _downloadfile(urlnya)async{
     Dio dio = Dio();
 
+    try  {
       var dir = await getExternalStorageDirectory();
-      await dio.download('http://dlh-serangkota.com/upload/data/' + urlnya, dir.path + "/" + urlnya, onReceiveProgress:(rec, tot){
-        print('Rec: $rec, Total: $tot');
-        print(dir.toString());
-        setState(() {
-          downloading = true;
-          progressLo = ((rec/tot)*100).toStringAsFixed(0) + '%';
-        //progress = 'test';
-        });
-      });
+      await dio.download('http://dlh-serangkota.com/upload/data/' + urlnya,
+          dir.path + "/" + urlnya, onReceiveProgress: (rec, tota) {
+            print('Rec: $rec, Total: $tota');
+            setState((){
+              downloading = true;
+              progressLo = ((rec / tota) * 100).toStringAsFixed(0) + '%';
+            });
+          });
+    }catch(e){
+      print(e);
+    }
 
-//    setState(() {
-//      //downloading = false;
-//
-//    });
+    setState(() {
+      downloading = false;
+      progressLo = 'Selesai';
+    });
     print('download selesai');
   }
 
-  void _showDialog() {
-    // flutter defined function
-    showDialog(
-      context: context,
-      builder: (BuildContext context) {
-        // return object of type Dialog
-        return AlertDialog(
-          title: new Text('Perhatian'),
-          content: new Text("Tidak Ada Data"),
-          actions: <Widget>[
-            // usually buttons at the bottom of the dialog
-            new FlatButton(
-              child: new Text("Keluar"),
-              onPressed: () {
-                Navigator.of(context).pop();
-              },
-            ),
-          ],
-        );
-      },
-    );
-  }
-  void _showdownload() {
+  Future<void> _showdownload() {
     // flutter defined function
     showDialog(
       context: context,
@@ -126,7 +108,7 @@ class _InfoData extends State<InfoData>{
                 SizedBox(
                   height: 25,
                 ),
-                Text('Downloading: $progressLo')
+                Text('Downloading $progressLo')
               ],
             ),
           ),
@@ -142,7 +124,7 @@ class _InfoData extends State<InfoData>{
     return Scaffold(
       appBar: AppBar(
         backgroundColor: ColorPalette.underlineTextField,
-        title: ResponsiveContainer(widthPercent: 60,heightPercent: 4.5, child: Text('Informasi Data', style: TextStyle(fontWeight: FontWeight.bold, fontSize: 22), textAlign: TextAlign.center,),),
+        title: ResponsiveContainer(widthPercent: 60,heightPercent: 4.5, child: Text(downloading ? 'Download $progressLo':'Informasi Data', style: TextStyle(fontWeight: FontWeight.bold, fontSize: 22), textAlign: TextAlign.center,),),
         elevation: 0,
       ),
       body:loading == true ? _buildProgressIndicator():  RefreshIndicator(
@@ -207,7 +189,7 @@ class _InfoData extends State<InfoData>{
                       child: RaisedButton(
                         onPressed: (){
                           _downloadfile(urlnya = total[index]['files']);
-                          _showdownload();
+
 
                         },
                         child: AutoSizeText('Download',),
