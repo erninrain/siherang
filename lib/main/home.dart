@@ -53,6 +53,12 @@ class _Beranda extends State<Beranda>{
   Widget build(BuildContext context) {
     // TODO: implement build
     return Scaffold(
+      appBar: AppBar(
+        leading: Padding(padding: EdgeInsets.only(left: 0),),
+        iconTheme: IconThemeData(color: ColorPalette.underlineTextField),
+        title: ResponsiveContainer(widthPercent: 60,heightPercent: 4.5, child: Text('Beranda', style: TextStyle(fontWeight: FontWeight.bold, fontSize: 22), textAlign: TextAlign.center,),),
+        backgroundColor: ColorPalette.underlineTextField,
+      ),
       body:loading == true ? _buildProgressIndicator():  ResponsiveContainer(
         widthPercent: 100,
         heightPercent: 100,
@@ -70,7 +76,7 @@ class _Beranda extends State<Beranda>{
   _body(){
     return Column(
         children: <Widget>[
-          Padding(padding: EdgeInsets.only(top: 40),),
+          Padding(padding: EdgeInsets.only(top: 10),),
           _slider(),
               _tentang()
         ],

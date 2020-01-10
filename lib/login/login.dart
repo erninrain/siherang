@@ -21,18 +21,22 @@ class LoginPage extends StatefulWidget{
 
 class _LoginPage extends State<LoginPage>{
   bool passwordVisible = false;
+  bool loading = false;
 
   TextEditingController user=new TextEditingController();
   TextEditingController pass=new TextEditingController();
   String msg ='';
   String dtid='';
   Future<List> _proseslogin() async{
+    setState(() {
+      loading = true;
+    });
     final response = await http.post(linknya.urlbase + "app/login", body: {
       'email':user.text,
       'password':pass.text
     });
     var datauser = jsonDecode(response.body);
-    var data = datauser['data'][0];
+    var data = datauser['data'];
     print(data);
     if(datauser['status'] == 'gagal'){
       Alert(
@@ -52,11 +56,15 @@ class _LoginPage extends State<LoginPage>{
         ],
       ).show();
     }else{
+      print(data[0]['id'].toString());
       SharedPreferences prefs = await SharedPreferences.getInstance();
-      prefs.setString('id', data['id'].toString());
-      prefs.setString('token', data['remember_token'].toString());
+      prefs.setString('id', data[0]['id'].toString());
+      prefs.setString('token', data[0]['remember_token'].toString());
       Navigator.pushReplacement(context, SlideRightRoute(page: HomePage()));
     }
+    setState(() {
+      loading = false;
+    });
   }
 
   @override
@@ -70,7 +78,7 @@ class _LoginPage extends State<LoginPage>{
         position: DecorationPosition.background,
         decoration: BoxDecoration(
         ),
-        child:ListView(
+        child:loading == true ? _buildProgressIndicator(): ListView(
           children: <Widget>[
             _iconLogin(),
             _inputan(),
@@ -95,7 +103,8 @@ class _LoginPage extends State<LoginPage>{
 
     );
   }
-  Widget _iconLogin(){
+
+  _iconLogin(){
     return Container(
       child: Text(
           'Login',
@@ -108,7 +117,7 @@ class _LoginPage extends State<LoginPage>{
     );
   }
 
-  Widget _inputan(){
+  _inputan(){
     return Container(
       padding: EdgeInsets.all(20.0),
       child: Column(
@@ -182,7 +191,7 @@ class _LoginPage extends State<LoginPage>{
     );
   }
 
-  Widget _btn(BuildContext context){
+  _btn(BuildContext context){
     return Container(
       padding: EdgeInsets.only(top:150, right: 20, left: 20),
       child:
@@ -209,7 +218,7 @@ class _LoginPage extends State<LoginPage>{
     );
   }
 
-  Widget _text(BuildContext context){
+  _text(BuildContext context){
     return Container(
       padding: EdgeInsets.all(20),
       child: Row(
@@ -235,6 +244,18 @@ class _LoginPage extends State<LoginPage>{
             ),
           )
         ],
+      ),
+    );
+  }
+
+  _buildProgressIndicator() {
+    return new Padding(
+      padding: const EdgeInsets.all(8.0),
+      child: new Center(
+        child: new Opacity(
+          opacity: loading ? 1.0 : 00,
+          child: new CircularProgressIndicator(),
+        ),
       ),
     );
   }

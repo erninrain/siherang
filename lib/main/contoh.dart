@@ -39,7 +39,7 @@ class _MyHomePage extends State<MyHomePage>{
     final response = await http.get(linknya.urlbase + "app/pengumuman?page=1" );
     var jsson = jsonDecode(response.body);
     var data = jsson['data']['data'];
-    print(data);
+    print('program');
     setState(() {
       loading = false;
       total.addAll(data);
@@ -50,6 +50,12 @@ class _MyHomePage extends State<MyHomePage>{
   Widget build(BuildContext context) {
     // TODO: implement build
     return Scaffold(
+      appBar: AppBar(
+        leading: Padding(padding: EdgeInsets.only(left: 0),),
+        iconTheme: IconThemeData(color: ColorPalette.underlineTextField),
+        title: ResponsiveContainer(widthPercent: 60,heightPercent: 4.5, child: Text('Program', style: TextStyle(fontWeight: FontWeight.bold, fontSize: 22), textAlign: TextAlign.center,),),
+        backgroundColor: ColorPalette.underlineTextField,
+      ),
       body:loading == true ? _buildProgressIndicator():  ResponsiveContainer(
         widthPercent: 100,
         heightPercent: 100,
@@ -67,7 +73,7 @@ class _MyHomePage extends State<MyHomePage>{
   _body(){
     return Column(
       children: <Widget>[
-        Padding(padding: EdgeInsets.only(top: 40),),
+        Padding(padding: EdgeInsets.only(top: 10),),
         _slider(),
         _tentang()
       ],

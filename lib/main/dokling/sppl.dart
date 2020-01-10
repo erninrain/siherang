@@ -4,7 +4,7 @@ import 'package:auto_size_text/auto_size_text.dart';
 import 'package:dio/dio.dart';
 import 'package:dlh/animasi/constant.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_webview_plugin/flutter_webview_plugin.dart';
+import 'package:flutter_inappbrowser/flutter_inappbrowser.dart';
 import 'package:path_provider/path_provider.dart';
 import 'package:responsive_container/responsive_container.dart';
 import 'package:http/http.dart' as http;
@@ -65,9 +65,7 @@ class _SpplPage extends State<SpplPage>{
 
   @override
   Widget build(BuildContext context) {
-    return WebviewScaffold(
-      url: widget.ur,
-      hidden: true,
+    return Scaffold(
       appBar: AppBar(
         title: ResponsiveContainer(
           widthPercent: 60,
@@ -78,6 +76,9 @@ class _SpplPage extends State<SpplPage>{
           ),
         ),
         backgroundColor: ColorPalette.underlineTextField,
+      ),
+      body: InAppWebView(
+        initialUrl: widget.ur,
       ),
       bottomNavigationBar: Container(
         padding: EdgeInsets.all(10),

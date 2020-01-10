@@ -2,7 +2,6 @@ import 'dart:convert';
 
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_webview_plugin/flutter_webview_plugin.dart';
 import 'package:responsive_container/responsive_container.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'dart:async';
@@ -92,7 +91,7 @@ class _SplashScreenPageState extends State<SplashScreenPage>{
               ),
             ),
             Padding(padding: EdgeInsets.only(top: 15)),
-            Text('SI HERANG', textAlign: TextAlign.center, style: TextStyle(fontSize: 28, color: ColorPalette.underlineTextField, fontWeight: FontWeight.bold),),
+            Text('SISTEM APLIKASI DINSA LINGKUNGAN HIDUP KOTA SERANG', textAlign: TextAlign.center, style: TextStyle(fontSize: 20, color: ColorPalette.underlineTextField, fontWeight: FontWeight.bold),),
             Padding(padding: EdgeInsets.only(top: 25)),
             _buildProgressIndicator()
           ],

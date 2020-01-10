@@ -23,6 +23,7 @@ class _RegisterPage extends State<RegisterPage>{
   bool pw1 = false;
   bool pw2 = false;
   String msg='';
+  bool loading = false;
   TextEditingController email=new TextEditingController();
   TextEditingController nama=new TextEditingController();
   TextEditingController nohp=new TextEditingController();
@@ -30,6 +31,9 @@ class _RegisterPage extends State<RegisterPage>{
   TextEditingController cpass=new TextEditingController();
   String mse ='';
   Future<List> _register() async {
+    setState(() {
+      loading = true;
+    });
     if(cpass.text == pass.text) {
       final response = await http.post(linknya.urlbase + "app/register", body: {
         'name': nama.text,
@@ -48,7 +52,7 @@ class _RegisterPage extends State<RegisterPage>{
           context: context,
           type: AlertType.error,
           title: "Terjadi Kesalahan",
-          desc: 'Email Tidak Valid',
+          desc: 'Email Tidak Valid / Email Sudah Terdaftar',
           buttons: [
             DialogButton(
               child: Text(
@@ -96,7 +100,9 @@ class _RegisterPage extends State<RegisterPage>{
         ],
       ).show();
     }
-
+    setState(() {
+      loading = false;
+    });
   }
   @override
   Widget build(BuildContext context) {
@@ -109,7 +115,7 @@ class _RegisterPage extends State<RegisterPage>{
         position: DecorationPosition.background,
         decoration: BoxDecoration(
         ),
-        child:ListView(
+        child:loading == true? _buildProgressIndicator():ListView(
           children: <Widget>[
             _iconLogin(),
             _inputan(),
@@ -123,7 +129,7 @@ class _RegisterPage extends State<RegisterPage>{
     );
   }
 
-  Widget _iconLogin(){
+ _iconLogin(){
     return Container(
       child: Text(
           'Register',
@@ -136,7 +142,7 @@ class _RegisterPage extends State<RegisterPage>{
     );
   }
 
-  Widget _inputan(){
+ _inputan(){
     return Container(
       padding: EdgeInsets.all(20.0),
       child: Column(
@@ -301,7 +307,7 @@ class _RegisterPage extends State<RegisterPage>{
     );
   }
 
-  Widget _btn(BuildContext context){
+ _btn(BuildContext context){
     return Container(
       padding: EdgeInsets.only(top:50, right: 20, left: 20),
       child:
@@ -328,7 +334,7 @@ class _RegisterPage extends State<RegisterPage>{
     );
   }
 
-  Widget _text(BuildContext context){
+ _text(BuildContext context){
     return Container(
       padding: EdgeInsets.all(20),
       child: Row(
@@ -355,6 +361,18 @@ class _RegisterPage extends State<RegisterPage>{
             ),
           )
         ],
+      ),
+    );
+  }
+
+ _buildProgressIndicator() {
+    return new Padding(
+      padding: const EdgeInsets.all(8.0),
+      child: new Center(
+        child: new Opacity(
+          opacity: loading ? 1.0 : 00,
+          child: new CircularProgressIndicator(),
+        ),
       ),
     );
   }
