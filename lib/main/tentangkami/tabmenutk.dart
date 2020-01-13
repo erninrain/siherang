@@ -1,5 +1,6 @@
 import 'package:dlh/animasi/animasi.dart';
 import 'package:dlh/animasi/constant.dart';
+import 'package:dlh/main/akun.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
@@ -19,8 +20,11 @@ class _MenuTk extends State<MenuTk>  {
   var URL = "https://google.com";
   int _counter = 0;
   String nmmenu='';
-  String kons = '';
+  InAppWebViewController webView;
+  String kons = linknya.url + 'mobile/kadis';
+  int pil = 0;
   bool hil = false;
+  double progress = 0;
   ScrollController _scrollController = new ScrollController();
 
   void _incrementCounter() {
@@ -36,10 +40,13 @@ class _MenuTk extends State<MenuTk>  {
     Navigator.of(context).pushNamed('/jmlhpnsthl');
   }
 
-  Future<void> stru(kons){
-    var j = kons;
+  Future<void> stru(pil) async{
+    var j = pil;
+    _kadis();
     print(j);
-    _kadis(kons = j);
+    setState(() {
+      pil = j;
+    });
   }
   @override
   void initState() {
@@ -55,25 +62,26 @@ class _MenuTk extends State<MenuTk>  {
   Widget build(BuildContext context) {
     return DefaultTabController(
       length: 5,
-      child: Scaffold(
-        appBar: AppBar(
-          title: ResponsiveContainer(widthPercent: 60,heightPercent: 4.5, child: Text('Tentang Kami', style: TextStyle(fontWeight: FontWeight.bold, fontSize: 22), textAlign: TextAlign.center,),),
-          elevation: 0,
-          backgroundColor: ColorPalette.underlineTextField,
-          bottom: TabBar(
-            isScrollable: true,
-            indicatorColor: Colors.orangeAccent,
-            tabs: <Widget>[
-              Tab(child: Text('Dasar Hukum')),
-              Tab(child: Text('Visi & Misi')),
-              Tab(child: Text('Sejarah')),
-              Tab(child: Text('Struktur Bidang')),
-              Tab(child: Text('Struktur Organisasi')),
-            ],
+        child: Scaffold(
+          appBar: AppBar(
+            title: ResponsiveContainer(widthPercent: 60,heightPercent: 4.5, child: Text('Tentang Kami', style: TextStyle(fontWeight: FontWeight.bold, fontSize: 22), textAlign: TextAlign.center,),),
+            elevation: 0,
+            backgroundColor: ColorPalette.underlineTextField,
+            bottom: TabBar(
+              isScrollable: true,
+              indicatorColor: Colors.orangeAccent,
+              tabs: <Widget>[
+                Tab(child: Text('Dasar Hukum')),
+                Tab(child: Text('Visi & Misi')),
+                Tab(child: Text('Sejarah')),
+                Tab(child: Text('Struktur Bidang')),
+                Tab(child: Text('Struktur Organisasi')),
+              ],
+            ),
           ),
+          body: _menu(),
+          backgroundColor: Colors.white,// This trailing comma makes auto-formatting nicer for build methods.
         ),
-        body: _menu(), // This trailing comma makes auto-formatting nicer for build methods.
-      ),
     );
   }
   _menu(){
@@ -171,21 +179,24 @@ class _MenuTk extends State<MenuTk>  {
                  FlatButton(
                    padding: EdgeInsets.only(left: 5,right: 5),
                    onPressed: (){
-                     _kadis( kons = 'https://dlh-serangkota.com/kadis');
+                     webView.reload();
+                     webView.loadUrl(linknya.url + 'mobile/kadis');
                    },
                    child: _btnmnu(nmmenu = 'Kepala Dinas'),
                  ),
                  FlatButton(
                    padding: EdgeInsets.only(left: 5,right: 5),
                    onPressed: (){
-                     stru( kons = 'https://dlh-serangkota.com/sekdis');
+                     webView.reload();
+                     webView.loadUrl(linknya.url + 'mobile/sekdis');
                    },
                     child:_btnmnu(nmmenu = 'Sekretaris'),
                  ),
                  FlatButton(
                    padding: EdgeInsets.only(left: 5,right: 5),
                    onPressed: (){
-                     _kadis( kons = '');
+                     webView.reload();
+                     webView.loadUrl(linknya.url + 'mobile/unpeg');
                    },
                    child:_btnmnu(nmmenu = 'Umum dan Kepegawaian'),
                  ),
@@ -193,7 +204,8 @@ class _MenuTk extends State<MenuTk>  {
                  FlatButton(
                    padding: EdgeInsets.only(left: 5,right: 5),
                    onPressed: (){
-                     _kadis( kons = '');
+                     webView.reload();
+                     webView.loadUrl(linknya.url + 'mobile/pep');
                    },
                    child:_btnmnu(nmmenu = 'PEP dan Keuangan'),
                  ),
@@ -201,7 +213,8 @@ class _MenuTk extends State<MenuTk>  {
                  FlatButton(
                    padding: EdgeInsets.only(left: 5,right: 5),
                    onPressed: (){
-                     _kadis( kons = '');
+                     webView.reload();
+                     webView.loadUrl(linknya.url + 'mobile/pplh');
                    },
                    child:_btnmnu(nmmenu = 'Bidang Penataan dan Penaatan'),
                  ),
@@ -209,7 +222,8 @@ class _MenuTk extends State<MenuTk>  {
                  FlatButton(
                    padding: EdgeInsets.only(left: 5,right: 5),
                    onPressed: (){
-                     _kadis( kons = '');
+                     webView.reload();
+                     webView.loadUrl(linknya.url + 'mobile/pslb');
                    },
                    child:_btnmnu(nmmenu = 'Bidang Pengelolaan'),
                  ),
@@ -217,7 +231,8 @@ class _MenuTk extends State<MenuTk>  {
                  FlatButton(
                    padding: EdgeInsets.only(left: 5,right: 5),
                    onPressed: (){
-                     _kadis( kons = '');
+                     webView.reload();
+                     webView.loadUrl(linknya.url + 'mobile/ppklh');
                    },
                    child:_btnmnu(nmmenu = 'Bidang Pengendalian'),
                  ),
@@ -225,7 +240,8 @@ class _MenuTk extends State<MenuTk>  {
                  FlatButton(
                    padding: EdgeInsets.only(left: 5,right: 5),
                    onPressed: (){
-                     _kadis( kons = '');
+                     webView.reload();
+                     webView.loadUrl(linknya.url + 'mobile/uptlab');
                    },
                    child:_btnmnu(nmmenu = 'UPTD Laboratorium'),
                  ),
@@ -233,7 +249,8 @@ class _MenuTk extends State<MenuTk>  {
                  FlatButton(
                    padding: EdgeInsets.only(left: 5,right: 5),
                    onPressed: (){
-                     _kadis( kons = '');
+                     webView.reload();
+                     webView.loadUrl(linknya.url + 'mobile/uptperbekalan');
                    },
                    child:_btnmnu(nmmenu = 'UPTD Perlengkapan'),
                  ),
@@ -241,18 +258,24 @@ class _MenuTk extends State<MenuTk>  {
                  FlatButton(
                    padding: EdgeInsets.only(left: 5,right: 5),
                    onPressed: (){
-                     _kadis( kons = '');
+                     webView.reload();
+                     webView.loadUrl(linknya.url + 'mobile/jabatan');
                    },
                    child:_btnmnu(nmmenu = 'Kelompok Jabatan Fungsional'),
                  ),
                ],
              ),
            ),
-           ResponsiveContainer(
-             widthPercent: 100,
-             heightPercent: 74.5,
-             child: _kadis( kons = 'https://dlh-serangkota.com/kadis')
+            (progress != 1.0) ? LinearProgressIndicator(value: progress) : Padding(padding: EdgeInsets.all(0),),
+           Expanded(
+             child: ResponsiveContainer(
+               widthPercent: 100,
+               heightPercent: 70,
+               padding: EdgeInsets.only(left:15, right: 15, top: 15),
+               child:_kadis(),
+             ),
            ),
+
 
 
           ],
@@ -270,96 +293,31 @@ class _MenuTk extends State<MenuTk>  {
       ],
     );
   }
-  _strukturbid(){
-  return VerticalTabs(
-    tabsWidth: 110,
-    tabsShadowColor: ColorPalette.underlineTextField,
-    contentScrollAxis: Axis.horizontal,
-    tabsElevation: 2,
-    dividerColor:ColorPalette.underlineTextField ,
-    indicatorColor: ColorPalette.underlineTextField,
-    tabs: <Tab>[
-      Tab(child: Text('Kepala Dinas')),
-      Tab(child: Text('Sekretari')),
-      Tab(child: Text('Umum dan Kepegawaian')),
-      Tab(child: Text('PEP dan Keuangan')),
-      Tab(child: Text('Bidang Penataan')),
-      Tab(child: Text('Bidang Pengelolaan')),
-      Tab(child: Text('Bidang Pengendalian')),
-      Tab(child: Text('UPTD Laboratorium')),
-      Tab(child: Text('UPTD Perlengkapan')),
-      Tab(child: Text('Kelompok Jabatan')),
-    ],
-    contents: <Widget>[
-      InAppWebView(
-        initialUrl: 'https://dlh-serangkota.com/kadis',
-        onWebViewCreated: (InAppWebViewController controller){},
-      ),
-      ListView(children: <Widget>[
-        Text("2")
-      ], padding: EdgeInsets.all(10)),
-      ListView(children: <Widget>[
-        HtmlWidget(
-          '''
-          <h2 class="hero-heading wow fadeInDown animated animated" data-wow-duration="0.6s" style="visibility: visible; animation-duration: 0.6s;">SEJARAH</h2>
-                <table border="0" cellpadding="10" class="hero-text wow bounceInUp animated animated" data-wow-duration="0.9s" data-wow-delay="0.2s" style="visibility: visible; animation-duration: 0.9s; animation-delay: 0.2s;">
-                    
-                    <tr>
-                        <td align="left">
-                        <p style="text-align: justify">Dengan diberlakukannya Undang-undang Nomor 22 Tahun 1999 tentang Pemerintahan Daerah dan Peraturan Pemerintah Nomor 25 Tahun 2000 tentang Kewenangan Pemerintah dan Kewenangan Provinsi sebagai Daerah Otonom.
-                        Untuk melaksanakan kegiatan pembangunan pada bidang pelestarian  lingkungan hidup, berdasarkan Peraturan Daerah Nomor 10 Tahun 2008 tentang Susunan Organisasi  Lembaga Teknis Daerah Kota Serang yang kemudian diubah dengan Peraturan Daerah Kota Serang
-                        Nomor 18 Tahun 2011 tentang Perubahan atas Peraturan Daerah Kota Serang Nomor 10 Tahun 2008 tentang Pembentukan dan Susunan Organisasi Lembaga Teknis Daerah Kota Serang.</p></td>
-                    </tr>
-                    <tr>
-                        <td align="left">
-                        <p style="text-align: justify">Pada Tahun 2004 , Undang-Undang Nomor 22 Tahun 1999 tentang Pemerintahan Daerah diganti dengan Undang-Undang Nomor 32 Tahun 2004 tentang Pemerintahan Daerah (Lembaran Negara Republik Indonesia Tahun 2004 Nomor 125,
-                        Tambahan Lembaran Negara Republik Indonesia Nomor 4437) sebagaimana telah diubah dengan Undang-Undang Nomor 2 Tahun 2008 tentang tentang Perubahan Kedua Atas Undang-Undang Nomor 32 Tahun 2004 tentang Pemerintahan Daerah (Lembaran Negara Republik Indonesia Tahun 2008 Nomor 59,
-                        Tambahan Lembaran Negara Republik Indonesia Nomor 4844) dan berdasarkan Peraturan Pemerintah Nomor 41 Tahun 2007 tentang  Organisasi Perangkat Daerah (Lembaran Negara Republik Indonesia Tahun 2007 Nomor 89, Tambahan Lembaran Negara Republik Indonesia Nomor 4741) . Pada Tahun 2011,
-                        nomenklator Kantor Lingkungan Hidup Kota Serang diubah menjadi Badan Lingkungan Hidup Kota Serang berdasarkan Peraturan Daerah Nomor 18 Tahun 2011. Sedangkan Tupoksi diatur pada Peraturan Walikota Nomor 18 tahun 2011 tentang Perubahan atas Peraturan Walikota Nomor 38 Tahun 2008 tentang Tugas Pokok dan Fungsi Lembaga Teknis Daerah Kota Serang.</p></td>
-                    </tr>
-                </table>
-          ''',
-          webView: true,
-        )
-      ], padding: EdgeInsets.all(10)),
-      Container(child: Text(''), padding: EdgeInsets.all(20)),
-      ListView(children: <Widget>[
-        HtmlWidget(
-          '''
-          <h2 class="hero-heading wow fadeInDown animated animated" data-wow-duration="0.6s" style="visibility: visible; animation-duration: 0.6s;">STRUKTUR ORGANISASI</h2>
-            <table border="0" cellpadding="10" class="hero-text wow bounceInUp animated animated" data-wow-duration="0.9s" data-wow-delay="0.2s" style="visibility: visible; animation-duration: 0.9s; animation-delay: 0.2s;">
-                <br>
-                <br>
-                <tr>
-                    <td align="left">
-                        <img src="https://dlh-serangkota.com/image-resources/dlh/strukdlh.png">
-                    </td>
-                </tr>
 
-            </table>
-          ''',
-        )
-      ], padding: EdgeInsets.all(10)),
-      Container(child: Text(''), padding: EdgeInsets.all(20)),
-      Container(child: Text(''), padding: EdgeInsets.all(20)),
-      Container(child: Text(''), padding: EdgeInsets.all(20)),
-      Container(child: Text(''), padding: EdgeInsets.all(20)),
-      Container(child: Text(''), padding: EdgeInsets.all(20)),
-    ],
-  );
-  }
 
-  _kadis(kons){
+  Widget _kadis(){
     return InAppWebView(
-      initialUrl: kons != null ? kons:kons,
-      onWebViewCreated: (InAppWebViewController controller){},
-    );
-  }
+      initialUrl: kons,
+      initialHeaders: {
 
-  _sekretaris(){
-    return InAppWebView(
-      initialUrl: 'https://dlh-serangkota.com/sekdis',
-      onWebViewCreated: (InAppWebViewController controller){},
+      },
+      initialOptions: {
+
+      },
+      onWebViewCreated: (InAppWebViewController controller) {
+        webView = controller;
+      },
+      onLoadStart: (InAppWebViewController controller, String url) {
+        print("started $kons");
+        setState(() {
+          this.kons = kons;
+        });
+      },
+      onProgressChanged: (InAppWebViewController controller, int progress) {
+        setState(() {
+          this.progress = progress/100;
+        });
+      },
     );
   }
 

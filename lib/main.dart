@@ -91,7 +91,10 @@ class _SplashScreenPageState extends State<SplashScreenPage>{
               ),
             ),
             Padding(padding: EdgeInsets.only(top: 15)),
-            Text('SISTEM APLIKASI DINSA LINGKUNGAN HIDUP KOTA SERANG', textAlign: TextAlign.center, style: TextStyle(fontSize: 20, color: ColorPalette.underlineTextField, fontWeight: FontWeight.bold),),
+            Padding(
+              padding: EdgeInsets.all(20),
+              child: Text('SISTEM APLIKASI DINSA LINGKUNGAN HIDUP KOTA SERANG', textAlign: TextAlign.center, style: TextStyle(fontSize: 18, color: ColorPalette.underlineTextField, fontWeight: FontWeight.bold),),
+            ),
             Padding(padding: EdgeInsets.only(top: 25)),
             _buildProgressIndicator()
           ],

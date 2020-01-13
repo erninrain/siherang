@@ -11,6 +11,7 @@ import 'package:dlh/main/dokling/amdal.dart';
 import 'package:dlh/main/dokling/sppl.dart';
 import 'package:dlh/main/dokling/ukl.dart';
 import 'package:dlh/main/informasi_data/infodata.dart';
+import 'package:dlh/main/sipal/sipal.dart';
 import 'package:dlh/main/tentangkami/tabmenutk.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
@@ -162,7 +163,7 @@ class _Beranda extends State<Beranda>{
               ),
               FlatButton(
                 onPressed: ()async{
-                  Navigator.push(context, SlideRightRoute(page: LinkPage(ur: 'https://dlh-serangkota.com/mobile/cilowong', tit: 'Cilowong',)));
+                  Navigator.push(context, SlideRightRoute(page: sipalPage()));
                 },
                 padding: EdgeInsets.all(0),
                 child: _menu(ikon=Icons.textsms,nmmenu='SIPAL'),
