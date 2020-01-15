@@ -89,7 +89,7 @@ class _Beranda extends State<Beranda>{
 
   _padding(){
     return Padding(
-      padding: EdgeInsets.only(top: 25),
+      padding: EdgeInsets.only(top: 20),
     );
   }
 
@@ -97,7 +97,7 @@ class _Beranda extends State<Beranda>{
     return ResponsiveContainer(
       widthPercent: 100,
       heightPercent: 60,
-      padding: EdgeInsets.all(20),
+      padding: EdgeInsets.only(top:20,left: 20,right: 20),
       child: Column(
         children: <Widget>[
           Row(
@@ -182,9 +182,9 @@ class _Beranda extends State<Beranda>{
     return ResponsiveContainer(
       widthPercent: 29,
       heightPercent: 15,
-      padding: EdgeInsets.all(3),
+      padding: EdgeInsets.only(left: 5,right: 5),
       child: Container(
-        padding: EdgeInsets.all(5),
+        padding: EdgeInsets.all(2),
         alignment: Alignment.center,
         decoration: BoxDecoration(
           color: Colors.white,
@@ -194,7 +194,7 @@ class _Beranda extends State<Beranda>{
         ),
         child:Column(mainAxisAlignment: MainAxisAlignment.center, children: <Widget>[
             Icon(ikon, color: ColorPalette.underlineTextField, size: 50,),
-            Text(nmmenu,style: TextStyle(color: ColorPalette.underlineTextField, fontSize: 12, fontWeight: FontWeight.bold), textAlign: TextAlign.center,)
+            AutoSizeText(nmmenu,maxFontSize:12, minFontSize: 11,style: TextStyle(color: ColorPalette.underlineTextField, fontWeight: FontWeight.bold), textAlign: TextAlign.center,)
           ],
         ),
       ),

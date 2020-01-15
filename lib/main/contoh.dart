@@ -101,10 +101,10 @@ class _MyHomePage extends State<MyHomePage>{
             children: <Widget>[
               FlatButton(
                 onPressed: ()async{
-                  Navigator.push(context, SlideRightRoute(page: LinkPage(ur: linknya.url + 'mobile/adwiyata', tit: 'Adwiyata',)));
+                  Navigator.push(context, SlideRightRoute(page: LinkPage(ur: linknya.url + 'mobile/adwiyata', tit: 'Adiwiyata',)));
                 },
                 padding: EdgeInsets.all(0),
-                child: _menu(ikon=Icons.school,nmmenu='Adwiyata'),
+                child: _menu(ikon=Icons.school,nmmenu='Adiwiyata'),
               ),
               FlatButton(
                 onPressed: ()async{

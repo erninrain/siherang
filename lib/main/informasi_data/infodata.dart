@@ -164,6 +164,7 @@ class _InfoData extends State<InfoData>{
                 alignment: Alignment.topLeft,
                 padding: EdgeInsets.all(10),
                 decoration: BoxDecoration(
+                    boxShadow:[ BoxShadow(color: Colors.grey, spreadRadius: 0.5,offset: Offset(3.0,4.0), blurRadius: 5)],
                     color: ColorPalette.underlineTextField,
                     borderRadius: BorderRadius.circular(5)
                 ),

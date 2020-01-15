@@ -1,3 +1,4 @@
+import 'package:auto_size_text/auto_size_text.dart';
 import 'package:dlh/animasi/animasi.dart';
 import 'package:dlh/animasi/constant.dart';
 import 'package:dlh/main/akun.dart';
@@ -325,8 +326,8 @@ class _MenuTk extends State<MenuTk>  {
   _btnmnu(String s){
     return ResponsiveContainer(
       widthPercent: 40,
-      heightPercent: 10,
-      padding: EdgeInsets.only(top:10,bottom: 10),
+      heightPercent: 15,
+      padding: EdgeInsets.only(top:10, bottom: 0),
       child: Container(
         padding: EdgeInsets.all(5),
         alignment: Alignment.center,
@@ -334,11 +335,11 @@ class _MenuTk extends State<MenuTk>  {
           color: Colors.white,
           //boxShadow:[ BoxShadow(color: Colors.grey, spreadRadius: 0.5,offset: Offset(3.0,4.0), blurRadius: 5)],
           border: Border.all(color: ColorPalette.underlineTextField, width: 1.5),
-          borderRadius: BorderRadius.circular(70),
+          borderRadius: BorderRadius.circular(50),
         ),
         child:Column(mainAxisAlignment: MainAxisAlignment.center, children: <Widget>[
           //Icon(ikon, color: ColorPalette.underlineTextField, size: 50,),
-          Text(nmmenu,style: TextStyle(color: ColorPalette.underlineTextField, fontSize: 14, fontWeight: FontWeight.bold), textAlign: TextAlign.center,)
+          AutoSizeText(nmmenu,minFontSize:11,style: TextStyle(color: ColorPalette.underlineTextField, fontWeight: FontWeight.bold), textAlign: TextAlign.center,)
         ],
         ),
       ),

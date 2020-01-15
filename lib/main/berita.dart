@@ -205,14 +205,14 @@ class _BeritaPage extends State<BeritaPage> with SingleTickerProviderStateMixin{
                       Column(
                         children: <Widget>[
                           ResponsiveContainer(
-                            widthPercent: 50, heightPercent: 7, child: SizedBox(
-                            width: 180,
+                            widthPercent: 50, heightPercent: 5, child: SizedBox(
+
                             child: AutoSizeText(
                               Peng[index]['judul'], maxLines: 2,),),),
                           ResponsiveContainer(widthPercent: 50,
                             heightPercent: 5,
                             alignment: Alignment.bottomLeft,
-                            child: SizedBox(width: 180,
+                            child: SizedBox(
                               child: AutoSizeText(
                                 DateFormat('dd - MMMM - yyyy').format(
                                     DateTime.parse(Peng[index]['tanggal'])),
@@ -284,14 +284,14 @@ class _BeritaPage extends State<BeritaPage> with SingleTickerProviderStateMixin{
                   Column(
                     children: <Widget>[
                       ResponsiveContainer(
-                        widthPercent: 50, heightPercent: 7, child: SizedBox(
-                        width: 180,
+                        widthPercent: 50, heightPercent: 5, child: SizedBox(
+
                         child: AutoSizeText(
                           total[index]['judul'], maxLines: 2,),),),
                       ResponsiveContainer(widthPercent: 50,
                         heightPercent: 5,
                         alignment: Alignment.bottomLeft,
-                        child: SizedBox(width: 180,
+                        child: SizedBox(
                           child: AutoSizeText(
                             DateFormat('dd - MMMM - yyyy').format(
                                 DateTime.parse(total[index]['tanggal'])),

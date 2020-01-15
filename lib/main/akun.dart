@@ -122,7 +122,7 @@ class _AkunPage extends State<AkunPage>{
 
   Widget _center(){
     return ResponsiveContainer(
-    heightPercent: 55,
+    heightPercent: 100,
     widthPercent: 95,
       child: Container(
         alignment: Alignment.center,
@@ -157,19 +157,17 @@ class _AkunPage extends State<AkunPage>{
                       ResponsiveContainer(widthPercent: 45, heightPercent: 3,
                         child: AutoSizeText(nama  ,style: TextStyle(color: Colors.black, fontSize: 15), maxLines: 3,),
                       ),
-                      Padding(padding: EdgeInsets.only(top: 50),),
                     ],
                   ),
                   Row(
                     crossAxisAlignment: CrossAxisAlignment.center,
                     children: <Widget>[
-                      Padding(padding: EdgeInsets.only(left: 10),),
+                      Padding(padding: EdgeInsets.only(left: 10,top:50),),
                       Text("Email", style: TextStyle(color: Colors.black, fontSize: 15, fontWeight: FontWeight.bold),),
                       Padding(padding: EdgeInsets.only(left: 60),),
-                      ResponsiveContainer(widthPercent: 45, heightPercent: 3,
+                      ResponsiveContainer(widthPercent: 45, heightPercent: 5,
                           child: AutoSizeText(email,style: TextStyle(color: Colors.black, fontSize: 15), maxLines: 3,),
                       ),
-                      Padding(padding: EdgeInsets.only(top: 50),),
                     ],
                   ),
                   Row(
@@ -178,7 +176,7 @@ class _AkunPage extends State<AkunPage>{
                       Text("No HP", style: TextStyle(color: Colors.black, fontSize: 15, fontWeight: FontWeight.bold),),
                       Padding(padding: EdgeInsets.only(left: 50),),
                       Text(nohp, style: TextStyle(color: Colors.black, fontSize: 15),),
-                      Padding(padding: EdgeInsets.only(top: 50),),
+
                     ],
                   ),
 
@@ -202,9 +200,10 @@ class _AkunPage extends State<AkunPage>{
                     widthPercent: 50,
                     heightPercent: 8,
                     child: Container(
-                      padding: EdgeInsets.symmetric(vertical:15.0),
-                      child: Text(
+                      alignment: Alignment.center,
+                      child: AutoSizeText(
                         "Logout",
+                        minFontSize: 12,
                         style: TextStyle(color: Colors.white, fontSize: 18,),
                         textAlign: TextAlign.center,
                       ),

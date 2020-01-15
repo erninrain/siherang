@@ -2,6 +2,7 @@ import 'dart:convert';
 
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:responsive_container/responsive_container.dart';
 import 'package:rflutter_alert/rflutter_alert.dart';
 import 'package:shared_preferences/shared_preferences.dart';
@@ -14,13 +15,22 @@ import 'login/register.dart';
 import 'main/menu.dart';
 import 'dart:io';
 import 'package:http/http.dart' as http;
-void main() {
-  runApp(
-      MaterialApp(
-    debugShowCheckedModeBanner: false,
-    title: "Login Cogindo",
-    home: SplashScreenPage(),
-  ));
+void main() => runApp(MyApp());
+
+class MyApp extends StatelessWidget {
+  @override
+  Widget build(BuildContext context) {
+
+    SystemChrome.setPreferredOrientations([
+      DeviceOrientation.portraitUp,
+    ]);
+
+    return MaterialApp(
+      debugShowCheckedModeBanner: false,
+      title: "DLH Kota Serang",
+      home: SplashScreenPage(),
+    );
+  }
 }
 
 class SplashScreenPage extends StatefulWidget{
