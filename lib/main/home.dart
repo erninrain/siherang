@@ -60,14 +60,17 @@ class _Beranda extends State<Beranda>{
         title: ResponsiveContainer(widthPercent: 60,heightPercent: 4.5, child: Text('Beranda', style: TextStyle(fontWeight: FontWeight.bold, fontSize: 22), textAlign: TextAlign.center,),),
         backgroundColor: ColorPalette.underlineTextField,
       ),
-      body:loading == true ? _buildProgressIndicator():  ResponsiveContainer(
-        widthPercent: 100,
-        heightPercent: 100,
-        child: ListView(
-          children: <Widget>[
-            _body()
-          ],
+      body:loading == true ? _buildProgressIndicator(): RefreshIndicator(
+        child:  ResponsiveContainer(
+          widthPercent: 100,
+          heightPercent: 100,
+          child: ListView(
+            children: <Widget>[
+              _body()
+            ],
+          ),
         ),
+        onRefresh: kaon,
       ),
     );
 

@@ -29,7 +29,7 @@ class _AkunPage extends State<AkunPage>{
     datamenu();
   }
 
-  void datamenu() async {
+  Future<void> datamenu() async {
     if (!isLoading) {
       setState(() {
         isLoading = true;
@@ -54,20 +54,28 @@ class _AkunPage extends State<AkunPage>{
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body:isLoading == true ? _buildProgressIndicator(): ResponsiveContainer(
-        heightPercent: 100,
-        widthPercent: 100,
-        child: Column(
-          children: <Widget>[
-            Padding(
-              padding: EdgeInsets.only(top:24),
-            ),
-            _top(),
-            Padding( padding: EdgeInsets.only(top: 10),),
-            _center()
-          ],
+      body:isLoading == true ? _buildProgressIndicator(): RefreshIndicator(
+        child: ResponsiveContainer(
+          heightPercent: 100,
+          widthPercent: 100,
+          child: ListView(
+            scrollDirection: Axis.vertical,
+            children: <Widget>[
+              Column(
+                children: <Widget>[
+                  Padding(
+                    padding: EdgeInsets.only(top:0),
+                  ),
+                  _top(),
+                  Padding( padding: EdgeInsets.only(top: 10),),
+                  _center()
+                ],
+              )
+            ],
+          ),
         ),
-      )
+        onRefresh: datamenu,
+      ),
     );
   }
 
@@ -114,7 +122,7 @@ class _AkunPage extends State<AkunPage>{
 
   Widget _center(){
     return ResponsiveContainer(
-    heightPercent: 57,
+    heightPercent: 55,
     widthPercent: 95,
       child: Container(
         alignment: Alignment.center,
@@ -179,7 +187,7 @@ class _AkunPage extends State<AkunPage>{
               ),
             ),
           ),
-            Padding(padding: EdgeInsets.only(top: 50),),
+            Padding(padding: EdgeInsets.only(top: 20),),
             Stack(
               alignment: Alignment.bottomCenter,
               children: <Widget>[

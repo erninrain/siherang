@@ -47,11 +47,12 @@ class _sipalPage extends State<sipalPage>{
     });
   }
 
+
   Future<void> kaon() async {
     final response = await http.get(linknya.urlbase + "app/cek/sipal" );
     var jsson = jsonDecode(response.body);
     var data = jsson['data'];
-    print(data);
+    print('sipal');
     setState(() {
       total.addAll(data);
     });
@@ -86,14 +87,14 @@ class _sipalPage extends State<sipalPage>{
           ),
         ),
         body:_menu(),
-        bottomNavigationBar: ResponsiveContainer(
+        bottomNavigationBar: awal == true ? ResponsiveContainer(
           heightPercent: 10,
           widthPercent: 100,
           child: FlatButton(
             onPressed: (){},
-            child: Text("awal"),
+            child: Text("Download $progress"),
           ),
-        ),
+        ):Padding(padding: EdgeInsets.all(0),),
       ),
     );
   }

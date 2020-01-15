@@ -19,6 +19,8 @@ class SpplPage extends StatefulWidget{
 class _SpplPage extends State<SpplPage>{
   bool awal = false;
   List total = List();
+  double progressLo;
+  InAppWebViewController webView;
   String urlnya = '' ;
   var progress;
 
@@ -77,9 +79,7 @@ class _SpplPage extends State<SpplPage>{
         ),
         backgroundColor: ColorPalette.underlineTextField,
       ),
-      body: InAppWebView(
-        initialUrl: widget.ur,
-      ),
+      body: _menu(),
       bottomNavigationBar: Container(
         padding: EdgeInsets.all(10),
         child: awal == true ? Text("Download $progress",textAlign: TextAlign.center, style: TextStyle(
@@ -93,6 +93,43 @@ class _SpplPage extends State<SpplPage>{
           child: AutoSizeText('Download Form',style: TextStyle(fontWeight: FontWeight.bold, color: Colors.white, fontSize: 14),),
         ),
       ),
+    );
+  }
+
+  _menu(){
+    return Column(
+      mainAxisAlignment: MainAxisAlignment.center,
+      children: <Widget>[
+        (progressLo != 1.0) ? LinearProgressIndicator(value: progressLo) : Padding(padding: EdgeInsets.all(0),),
+        Expanded(
+          child: RefreshIndicator(
+            onRefresh: kaon,
+            child: InAppWebView(
+              initialUrl: widget.ur,
+              initialHeaders: {
+
+              },
+              initialOptions: {
+
+              },
+              onWebViewCreated: (InAppWebViewController controller) {
+                webView = controller;
+              },
+              onLoadStart: (InAppWebViewController controller, String url) {
+                print("started $widget.ur");
+                setState(() {
+                  widget.ur = widget.ur;
+                });
+              },
+              onProgressChanged: (InAppWebViewController controller, int progress) {
+                setState(() {
+                  this.progressLo = progress/100;
+                });
+              },
+            ),
+          ),
+        )
+      ],
     );
   }
 

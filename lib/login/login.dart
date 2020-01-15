@@ -1,3 +1,4 @@
+import 'dart:async';
 import 'dart:convert';
 
 import 'package:dlh/animasi/animasi.dart';
@@ -31,40 +32,40 @@ class _LoginPage extends State<LoginPage>{
     setState(() {
       loading = true;
     });
-    final response = await http.post(linknya.urlbase + "app/login", body: {
-      'email':user.text,
-      'password':pass.text
-    });
-    var datauser = jsonDecode(response.body);
-    var data = datauser['data'];
-    print(data);
-    if(datauser['status'] == 'gagal'){
-      Alert(
-        context: context,
-        type: AlertType.error,
-        title: "Terjadi Kesalahan",
-        desc: "Password Atau Email Salah.",
-        buttons: [
-          DialogButton(
-            child: Text(
-              "Back",
-              style: TextStyle(color: Colors.white, fontSize: 20),
-            ),
-            onPressed: () => Navigator.pop(context),
-            width: 120,
-          )
-        ],
-      ).show();
-    }else{
-      print(data[0]['id'].toString());
-      SharedPreferences prefs = await SharedPreferences.getInstance();
-      prefs.setString('id', data[0]['id'].toString());
-      prefs.setString('token', data[0]['remember_token'].toString());
-      Navigator.pushReplacement(context, SlideRightRoute(page: HomePage()));
-    }
-    setState(() {
-      loading = false;
-    });
+      final response = await http.post(linknya.urlbase + "app/login", body: {
+        'email': user.text,
+        'password': pass.text
+      }).timeout(const Duration(seconds: 5));
+      var datauser = jsonDecode(response.body);
+      var data = datauser['data'];
+      print(data);
+      if (datauser['status'] == 'gagal') {
+        Alert(
+          context: context,
+          type: AlertType.error,
+          title: "Terjadi Kesalahan",
+          desc: "Password Atau Email Salah.",
+          buttons: [
+            DialogButton(
+              child: Text(
+                "Back",
+                style: TextStyle(color: Colors.white, fontSize: 20),
+              ),
+              onPressed: () => Navigator.pop(context),
+              width: 120,
+            )
+          ],
+        ).show();
+      } else {
+        print(data[0]['id'].toString());
+        SharedPreferences prefs = await SharedPreferences.getInstance();
+        prefs.setString('id', data[0]['id'].toString());
+        prefs.setString('token', data[0]['remember_token'].toString());
+        Navigator.pushReplacement(context, SlideRightRoute(page: HomePage()));
+      }
+      setState(() {
+        loading = false;
+      });
   }
 
   @override

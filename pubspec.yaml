@@ -30,6 +30,7 @@ dependencies:
   flutter_launcher_icons: "^0.7.0"
   flutter_html: ^0.11.1
   flutter_widget_from_html: ^0.3.2
+  flutter_launcher_name: "^0.0.1"
   flutter_inappbrowser: ^1.2.1
   http: ^0.12.0+2
   html: ^0.14.0+3
@@ -46,9 +47,12 @@ dev_dependencies:
   flutter_test:
     sdk: flutter
 
+flutter_launcher_name:
+   name: "DLH Kota Serang"
+
 flutter_icons:
-  image_path: "asset/s1.png"
-  image_path_android: 'asset/s1.png'
+  image_path: "asset/siherannnggg.png"
+  image_path_android: 'asset/siherannnggg.png'
   image_path_ios: 'asset/s1.png'
   android: true # can specify file name here e.g. "ic_launcher"
   ios: true # can specify file name here e.g. "My-Launcher-Icon"

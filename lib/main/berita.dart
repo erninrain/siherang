@@ -56,7 +56,7 @@ class _BeritaPage extends State<BeritaPage> with SingleTickerProviderStateMixin{
     });
   }
 
-  void warta() async {
+  Future<void> warta() async {
    if(!_loadingMore){
      setState(() {
        _loadingMore = true;
@@ -123,22 +123,25 @@ class _BeritaPage extends State<BeritaPage> with SingleTickerProviderStateMixin{
             backgroundColor: ColorPalette.underlineTextField,
             bottom:_tabBar(),
           ),
-          body: RefreshIndicator(
-            child: ResponsiveContainer(
+          body:  ResponsiveContainer(
               margin: EdgeInsets.all(10),
               widthPercent: 100,
               heightPercent: 100,
               child: TabBarView(
                 controller: knt,
                 children: <Widget>[
-                  _list(),
-                  _list2(),
+                  RefreshIndicator(
+                    child: _list(),
+                    onRefresh: warta,
+                  ),
+                  RefreshIndicator(
+                    child: _list2(),
+                    onRefresh: warta,
+                  ),
 
                 ],
               ),
             ),
-            onRefresh: _refresh,
-          )
       )
     ;
   }

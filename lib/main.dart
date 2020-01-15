@@ -3,6 +3,7 @@ import 'dart:convert';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:responsive_container/responsive_container.dart';
+import 'package:rflutter_alert/rflutter_alert.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'dart:async';
 
@@ -11,6 +12,7 @@ import 'animasi/constant.dart';
 import 'login/login.dart';
 import 'login/register.dart';
 import 'main/menu.dart';
+import 'dart:io';
 import 'package:http/http.dart' as http;
 void main() {
   runApp(
@@ -30,35 +32,74 @@ class _SplashScreenPageState extends State<SplashScreenPage>{
   bool autol = false;
   bool isLoading = false;
   String name = '';
-
+  bool keluar = false;
   String userId = '';
 
   @override
   void initState() {
     super.initState();
 
-    startSplashScreen();
+    //startSplashScreen();
     autoLogIn();
   }
 
   void autoLogIn() async {
-    if (!isLoading) {
-      setState(() {
-        isLoading = true;
-      });
-      final SharedPreferences prefs = await SharedPreferences.getInstance();
-      String userId = prefs.getString('id');
-      String userToken = prefs.getString('token');
-
-      if (userId != null) {
-        isLoading = false;
-        print('auto login ok');
-        setState(() {
-          autol = true;
-          userId = prefs.getString('id');
-        });
-        return;
-      }
+    try {
+        if (!isLoading) {
+          setState(() {
+            isLoading = true;
+          });
+          final response = await http.get(linknya.url).timeout(Duration(seconds: 10));
+          final SharedPreferences prefs = await SharedPreferences.getInstance();
+          String userId = prefs.getString('id');
+          String userToken = prefs.getString('token');
+          startSplashScreen();
+          if (userId != null) {
+            isLoading = false;
+            print('auto login ok');
+            setState(() {
+              autol = true;
+              userId = prefs.getString('id');
+            });
+            return;
+          }
+        }
+    } on TimeoutException catch (e) {
+      Alert(
+        context: context,
+        type: AlertType.warning,
+        title: "",
+        desc: "Cek Koneksi Internet Anda.",
+        closeFunction: () => exit(0),
+        buttons: [
+          DialogButton(
+            child: Text(
+              "Back",
+              style: TextStyle(color: Colors.white, fontSize: 20),
+            ),
+            onPressed: () => exit(0),
+            width: 120,
+          )
+        ],
+      ).show();
+    } on Error catch (e) {
+      Alert(
+        context: context,
+        type: AlertType.error,
+        title: "Terjadi Kesalahan",
+        desc: "Cek Koneksi Internet Anda.",
+        closeFunction: () => exit(0),
+        buttons: [
+          DialogButton(
+            child: Text(
+              "Back",
+              style: TextStyle(color: Colors.white, fontSize: 20),
+            ),
+            onPressed: () => exit(0),
+            width: 120,
+          )
+        ],
+      ).show();
     }
 
   }
@@ -83,17 +124,17 @@ class _SplashScreenPageState extends State<SplashScreenPage>{
           mainAxisAlignment: MainAxisAlignment.center,
           children: <Widget>[
             ResponsiveContainer(
-              widthPercent: 80,
-              heightPercent: 40,
+              widthPercent: 55,
+              heightPercent: 30,
               child: Image.asset(
-                "asset/s1.png",
+                "asset/siherannnggg.png",
                   fit: BoxFit.cover,
               ),
             ),
             Padding(padding: EdgeInsets.only(top: 15)),
             Padding(
               padding: EdgeInsets.all(20),
-              child: Text('SISTEM APLIKASI DINSA LINGKUNGAN HIDUP KOTA SERANG', textAlign: TextAlign.center, style: TextStyle(fontSize: 18, color: ColorPalette.underlineTextField, fontWeight: FontWeight.bold),),
+              child: Text('SISTEM APLIKASI DINAS LINGKUNGAN HIDUP KOTA SERANG', textAlign: TextAlign.center, style: TextStyle(fontSize: 18, color: ColorPalette.underlineTextField, fontWeight: FontWeight.bold),),
             ),
             Padding(padding: EdgeInsets.only(top: 25)),
             _buildProgressIndicator()
@@ -142,19 +183,21 @@ class Utama extends StatelessWidget{
   }
 
   Widget _iconLogin(){
-    return InkWell(
+    return ResponsiveContainer(
+      widthPercent: 100,
+      heightPercent: 40,
       child: Container(
         padding: EdgeInsets.only(top:20.0, bottom: 20),
         width: double.infinity,
-        height: 300,
+
 
         decoration: BoxDecoration(
           color: Colors.white,
           borderRadius: BorderRadius.only(bottomLeft: const Radius.circular(70.0) ),
         ),
         child: Image.asset(
-          "asset/s1.png",
-          width: 250,
+          "asset/siherannnggg.png",
+          fit: BoxFit.contain,
         ),
       ),
     );

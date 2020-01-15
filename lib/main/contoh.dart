@@ -56,14 +56,17 @@ class _MyHomePage extends State<MyHomePage>{
         title: ResponsiveContainer(widthPercent: 60,heightPercent: 4.5, child: Text('Program', style: TextStyle(fontWeight: FontWeight.bold, fontSize: 22), textAlign: TextAlign.center,),),
         backgroundColor: ColorPalette.underlineTextField,
       ),
-      body:loading == true ? _buildProgressIndicator():  ResponsiveContainer(
-        widthPercent: 100,
-        heightPercent: 100,
-        child: ListView(
-          children: <Widget>[
-            _body()
-          ],
+      body:loading == true ? _buildProgressIndicator():  RefreshIndicator(
+        child: ResponsiveContainer(
+          widthPercent: 100,
+          heightPercent: 100,
+          child: ListView(
+            children: <Widget>[
+              _body()
+            ],
+          ),
         ),
+        onRefresh: kaon,
       ),
     );
 
@@ -98,21 +101,21 @@ class _MyHomePage extends State<MyHomePage>{
             children: <Widget>[
               FlatButton(
                 onPressed: ()async{
-                  Navigator.push(context, SlideRightRoute(page: MenuTk()));
+                  Navigator.push(context, SlideRightRoute(page: LinkPage(ur: linknya.url + 'mobile/adwiyata', tit: 'Adwiyata',)));
                 },
                 padding: EdgeInsets.all(0),
                 child: _menu(ikon=Icons.school,nmmenu='Adwiyata'),
               ),
               FlatButton(
                 onPressed: ()async{
-                  Navigator.push(context, SlideRightRoute(page: LinkPage(ur: 'https://dlh-serangkota.com/mobile/cilowong', tit: 'Cilowong',)));
+                  Navigator.push(context, SlideRightRoute(page: LinkPage(ur: linknya.url + 'mobile/banksampah', tit: 'Bank Sampah',)));
                 },
                 padding: EdgeInsets.all(0),
                 child: _menu(ikon=Icons.delete_sweep,nmmenu='Bank Sampah'),
               ),
               FlatButton(
                 onPressed: ()async{
-                  Navigator.push(context, SlideRightRoute(page: InfoData()));
+                  Navigator.push(context, SlideRightRoute(page: LinkPage(ur: linknya.url + 'mobile/pengawasan', tit: 'Pengawasan',)));
                 },
                 padding: EdgeInsets.all(0),
                 child: _menu(ikon=Icons.timeline,nmmenu='Pengawasan'),
@@ -125,14 +128,14 @@ class _MyHomePage extends State<MyHomePage>{
             children: <Widget>[
               FlatButton(
                 onPressed: ()async{
-                  Navigator.push(context, SlideRightRoute(page: MenuTk()));
+                  Navigator.push(context, SlideRightRoute(page: LinkPage(ur: linknya.url + 'mobile/persampahan', tit: 'Persampahan',)));
                 },
                 padding: EdgeInsets.all(0),
                 child: _menu(ikon=Icons.delete_outline,nmmenu='Persampahan'),
               ),
               FlatButton(
                 onPressed: ()async{
-                  Navigator.push(context, SlideRightRoute(page: LinkPage(ur: 'https://dlh-serangkota.com/mobile/cilowong', tit: 'Cilowong',)));
+                  Navigator.push(context, SlideRightRoute(page: LinkPage(ur: linknya.url + 'mobile/tps3r', tit: 'TPS3R',)));
                 },
                 padding: EdgeInsets.all(0),
                 child: _menu(ikon=Icons.assignment_turned_in,nmmenu='TPS 3R'),

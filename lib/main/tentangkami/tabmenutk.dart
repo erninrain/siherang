@@ -40,13 +40,8 @@ class _MenuTk extends State<MenuTk>  {
     Navigator.of(context).pushNamed('/jmlhpnsthl');
   }
 
-  Future<void> stru(pil) async{
-    var j = pil;
-    _kadis();
-    print(j);
-    setState(() {
-      pil = j;
-    });
+  Future<void> stru() async{
+    webView.reload();
   }
   @override
   void initState() {
@@ -168,117 +163,123 @@ class _MenuTk extends State<MenuTk>  {
             webView: true,
           )
         ], padding: EdgeInsets.all(10)),
-        Column(
-          children: <Widget>[
-           ResponsiveContainer(
-             widthPercent: 100,
-             heightPercent: 10,
-             child:  ListView(
-               scrollDirection: Axis.horizontal,
-               children: <Widget>[
-                 FlatButton(
-                   padding: EdgeInsets.only(left: 5,right: 5),
-                   onPressed: (){
-                     webView.reload();
-                     webView.loadUrl(linknya.url + 'mobile/kadis');
-                   },
-                   child: _btnmnu(nmmenu = 'Kepala Dinas'),
-                 ),
-                 FlatButton(
-                   padding: EdgeInsets.only(left: 5,right: 5),
-                   onPressed: (){
-                     webView.reload();
-                     webView.loadUrl(linknya.url + 'mobile/sekdis');
-                   },
-                    child:_btnmnu(nmmenu = 'Sekretaris'),
-                 ),
-                 FlatButton(
-                   padding: EdgeInsets.only(left: 5,right: 5),
-                   onPressed: (){
-                     webView.reload();
-                     webView.loadUrl(linknya.url + 'mobile/unpeg');
-                   },
-                   child:_btnmnu(nmmenu = 'Umum dan Kepegawaian'),
-                 ),
+        RefreshIndicator(
+          onRefresh: stru,
+          child: Column(
+            children: <Widget>[
+              ResponsiveContainer(
+                widthPercent: 100,
+                heightPercent: 10,
+                child:  ListView(
+                  scrollDirection: Axis.horizontal,
+                  children: <Widget>[
+                    FlatButton(
+                      padding: EdgeInsets.only(left: 5,right: 5),
+                      onPressed: (){
+                        webView.reload();
+                        webView.loadUrl(linknya.url + 'mobile/kadis');
+                      },
+                      child: _btnmnu(nmmenu = 'Kepala Dinas'),
+                    ),
+                    FlatButton(
+                      padding: EdgeInsets.only(left: 5,right: 5),
+                      onPressed: (){
+                        webView.reload();
+                        webView.loadUrl(linknya.url + 'mobile/sekdis');
+                      },
+                      child:_btnmnu(nmmenu = 'Sekretaris'),
+                    ),
+                    FlatButton(
+                      padding: EdgeInsets.only(left: 5,right: 5),
+                      onPressed: (){
+                        webView.reload();
+                        webView.loadUrl(linknya.url + 'mobile/unpeg');
+                      },
+                      child:_btnmnu(nmmenu = 'Umum dan Kepegawaian'),
+                    ),
 
-                 FlatButton(
-                   padding: EdgeInsets.only(left: 5,right: 5),
-                   onPressed: (){
-                     webView.reload();
-                     webView.loadUrl(linknya.url + 'mobile/pep');
-                   },
-                   child:_btnmnu(nmmenu = 'PEP dan Keuangan'),
+                    FlatButton(
+                      padding: EdgeInsets.only(left: 5,right: 5),
+                      onPressed: (){
+                        webView.reload();
+                        webView.loadUrl(linknya.url + 'mobile/pep');
+                      },
+                      child:_btnmnu(nmmenu = 'PEP dan Keuangan'),
+                    ),
+
+                    FlatButton(
+                      padding: EdgeInsets.only(left: 5,right: 5),
+                      onPressed: (){
+                        webView.reload();
+                        webView.loadUrl(linknya.url + 'mobile/pplh');
+                      },
+                      child:_btnmnu(nmmenu = 'Bidang Penataan dan Penaatan'),
+                    ),
+
+                    FlatButton(
+                      padding: EdgeInsets.only(left: 5,right: 5),
+                      onPressed: (){
+                        webView.reload();
+                        webView.loadUrl(linknya.url + 'mobile/pslb');
+                      },
+                      child:_btnmnu(nmmenu = 'Bidang Pengelolaan'),
+                    ),
+
+                    FlatButton(
+                      padding: EdgeInsets.only(left: 5,right: 5),
+                      onPressed: (){
+                        webView.reload();
+                        webView.loadUrl(linknya.url + 'mobile/ppklh');
+                      },
+                      child:_btnmnu(nmmenu = 'Bidang Pengendalian'),
+                    ),
+
+                    FlatButton(
+                      padding: EdgeInsets.only(left: 5,right: 5),
+                      onPressed: (){
+                        webView.reload();
+                        webView.loadUrl(linknya.url + 'mobile/uptlab');
+                      },
+                      child:_btnmnu(nmmenu = 'UPTD Laboratorium'),
+                    ),
+
+                    FlatButton(
+                      padding: EdgeInsets.only(left: 5,right: 5),
+                      onPressed: (){
+                        webView.reload();
+                        webView.loadUrl(linknya.url + 'mobile/uptperbekalan');
+                      },
+                      child:_btnmnu(nmmenu = 'UPTD Perlengkapan'),
+                    ),
+
+                    FlatButton(
+                      padding: EdgeInsets.only(left: 5,right: 5),
+                      onPressed: (){
+                        webView.reload();
+                        webView.loadUrl(linknya.url + 'mobile/jabatan');
+                      },
+                      child:_btnmnu(nmmenu = 'Kelompok Jabatan Fungsional'),
+                    ),
+                  ],
+                ),
+              ),
+              (progress != 1.0) ? LinearProgressIndicator(value: progress) : Padding(padding: EdgeInsets.all(0),),
+             RefreshIndicator(
+               onRefresh: stru,
+               child:  Expanded(
+                 child: ResponsiveContainer(
+                   widthPercent: 100,
+                   heightPercent: 70,
+                   padding: EdgeInsets.only(left:15, right: 15, top: 15),
+                   child:_kadis(),
                  ),
-
-                 FlatButton(
-                   padding: EdgeInsets.only(left: 5,right: 5),
-                   onPressed: (){
-                     webView.reload();
-                     webView.loadUrl(linknya.url + 'mobile/pplh');
-                   },
-                   child:_btnmnu(nmmenu = 'Bidang Penataan dan Penaatan'),
-                 ),
-
-                 FlatButton(
-                   padding: EdgeInsets.only(left: 5,right: 5),
-                   onPressed: (){
-                     webView.reload();
-                     webView.loadUrl(linknya.url + 'mobile/pslb');
-                   },
-                   child:_btnmnu(nmmenu = 'Bidang Pengelolaan'),
-                 ),
-
-                 FlatButton(
-                   padding: EdgeInsets.only(left: 5,right: 5),
-                   onPressed: (){
-                     webView.reload();
-                     webView.loadUrl(linknya.url + 'mobile/ppklh');
-                   },
-                   child:_btnmnu(nmmenu = 'Bidang Pengendalian'),
-                 ),
-
-                 FlatButton(
-                   padding: EdgeInsets.only(left: 5,right: 5),
-                   onPressed: (){
-                     webView.reload();
-                     webView.loadUrl(linknya.url + 'mobile/uptlab');
-                   },
-                   child:_btnmnu(nmmenu = 'UPTD Laboratorium'),
-                 ),
-
-                 FlatButton(
-                   padding: EdgeInsets.only(left: 5,right: 5),
-                   onPressed: (){
-                     webView.reload();
-                     webView.loadUrl(linknya.url + 'mobile/uptperbekalan');
-                   },
-                   child:_btnmnu(nmmenu = 'UPTD Perlengkapan'),
-                 ),
-
-                 FlatButton(
-                   padding: EdgeInsets.only(left: 5,right: 5),
-                   onPressed: (){
-                     webView.reload();
-                     webView.loadUrl(linknya.url + 'mobile/jabatan');
-                   },
-                   child:_btnmnu(nmmenu = 'Kelompok Jabatan Fungsional'),
-                 ),
-               ],
-             ),
-           ),
-            (progress != 1.0) ? LinearProgressIndicator(value: progress) : Padding(padding: EdgeInsets.all(0),),
-           Expanded(
-             child: ResponsiveContainer(
-               widthPercent: 100,
-               heightPercent: 70,
-               padding: EdgeInsets.only(left:15, right: 15, top: 15),
-               child:_kadis(),
-             ),
-           ),
+               ),
+             )
 
 
 
-          ],
+            ],
+          ),
         ),
         ListView(children: <Widget>[
           HtmlWidget(
@@ -297,27 +298,27 @@ class _MenuTk extends State<MenuTk>  {
 
   Widget _kadis(){
     return InAppWebView(
-      initialUrl: kons,
-      initialHeaders: {
+        initialUrl: kons,
+        initialHeaders: {
 
-      },
-      initialOptions: {
+        },
+        initialOptions: {
 
-      },
-      onWebViewCreated: (InAppWebViewController controller) {
-        webView = controller;
-      },
-      onLoadStart: (InAppWebViewController controller, String url) {
-        print("started $kons");
-        setState(() {
-          this.kons = kons;
-        });
-      },
-      onProgressChanged: (InAppWebViewController controller, int progress) {
-        setState(() {
-          this.progress = progress/100;
-        });
-      },
+        },
+        onWebViewCreated: (InAppWebViewController controller) {
+          webView = controller;
+        },
+        onLoadStart: (InAppWebViewController controller, String url) {
+          print("started $kons");
+          setState(() {
+            this.kons = kons;
+          });
+        },
+        onProgressChanged: (InAppWebViewController controller, int progress) {
+          setState(() {
+            this.progress = progress/100;
+          });
+        },
     );
   }
 
