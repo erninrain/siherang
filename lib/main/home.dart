@@ -11,6 +11,7 @@ import 'package:dlh/main/dokling/amdal.dart';
 import 'package:dlh/main/dokling/sppl.dart';
 import 'package:dlh/main/dokling/ukl.dart';
 import 'package:dlh/main/informasi_data/infodata.dart';
+import 'package:dlh/main/pengaduan/pengaduan.dart';
 import 'package:dlh/main/sipal/sipal.dart';
 import 'package:dlh/main/tentangkami/tabmenutk.dart';
 import 'package:flutter/cupertino.dart';
@@ -159,7 +160,7 @@ class _Beranda extends State<Beranda>{
             children: <Widget>[
               FlatButton(
                 onPressed: ()async{
-                  Navigator.push(context, SlideRightRoute(page: MenuTk()));
+                  Navigator.push(context, SlideRightRoute(page: PengaduanMaps()));
                 },
                 padding: EdgeInsets.all(0),
                 child: _menu(ikon=Icons.assignment,nmmenu='Pengaduan'),
