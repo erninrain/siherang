@@ -1,3 +1,4 @@
+import 'dart:async';
 import 'dart:convert';
 
 import 'package:auto_size_text/auto_size_text.dart';
@@ -12,21 +13,28 @@ import 'package:shared_preferences/shared_preferences.dart';
 import 'package:http/http.dart' as http;
 
 class BeritaPage extends StatefulWidget{
+  final int wartas;
+  final int pengumuman;
+  BeritaPage({this.wartas, this.pengumuman});
   @override
   _BeritaPage createState() => _BeritaPage();
 }
 
 class _BeritaPage extends State<BeritaPage> with SingleTickerProviderStateMixin{
   int _counter = 1;
+  Timer timer;
   int _counterpe = 1;
   List total = new List();
   List Peng = new List();
+  int wartas = 0;
+  int pengumuman = 0 ;
   String Judul='';
   ScrollController _scrollController = new ScrollController();
   ScrollController _scroll2Controller = new ScrollController();
   bool _loadingMore = false;
   TabController knt;
 
+  @override
   Future<void> _incrementCounter() async {
     setState(() {
       _counter++;
@@ -41,6 +49,7 @@ class _BeritaPage extends State<BeritaPage> with SingleTickerProviderStateMixin{
     });
   }
 
+  @override
   Future<void> _incrementpe() async {
     setState(() {
       _counterpe++;
@@ -56,6 +65,7 @@ class _BeritaPage extends State<BeritaPage> with SingleTickerProviderStateMixin{
     });
   }
 
+  @override
   Future<void> warta() async {
    if(!_loadingMore){
      setState(() {
@@ -79,22 +89,53 @@ class _BeritaPage extends State<BeritaPage> with SingleTickerProviderStateMixin{
    }
   }
 
-  Future<Null> _refresh() async {
-    final SharedPreferences prefs = await SharedPreferences.getInstance();
-    String userId = prefs.getString('id');
-    String userToken = prefs.getString('token');
-    final response = await http.get(linknya.urlbase + "app/artikel");
-    var jsson = jsonDecode(response.body);
-    var data = jsson['data'];
-    print(data);
-    setState(() {
-      total.addAll(data);
-    });
+  @override
+  Future<Null> _refreshberita() async {
+    if(!_loadingMore){
+      setState(() {
+        _loadingMore = true;
+        _counter = 1;
+      });
+      final SharedPreferences prefs = await SharedPreferences.getInstance();
+      String userId = prefs.getString('id');
+      String userToken = prefs.getString('token');
+      final response = await http.get(linknya.urlbase + "app/artikel?page=" + _counter.toString());
+      var jsson = jsonDecode(response.body);
+      var data = jsson['data']['data'];
+      print(_counter);
+      setState(() {
+        _loadingMore = false;
+        Peng = data;
+      });
+    }
+  }
+
+  @override
+  Future<Null> _refreshpengumuman () async {
+    if(!_loadingMore){
+      setState(() {
+        _loadingMore = true;
+        _counterpe = 1;
+      });
+      final SharedPreferences prefs = await SharedPreferences.getInstance();
+      String userId = prefs.getString('id');
+      String userToken = prefs.getString('token');
+      final response1 = await http.get(linknya.urlbase + "app/pengumuman?page=" + _counterpe.toString());
+      var jsson1 = jsonDecode(response1.body);
+      var data1 = jsson1['data']['data'];
+      print(_counter);
+      setState(() {
+        _loadingMore = false;
+        total = data1;
+      });
+    }
   }
 
   @override
   void initState() {
+
     super.initState();
+
     warta();
     _scrollController.addListener((){
       if(_scrollController.position.pixels == _scrollController.position.maxScrollExtent)
@@ -105,6 +146,25 @@ class _BeritaPage extends State<BeritaPage> with SingleTickerProviderStateMixin{
         _incrementpe();
     });
     knt = TabController(vsync: this, length: 2);
+    timer = Timer.periodic(Duration(seconds: 1), (Timer t) => setState((){
+      wartas = widget.wartas;
+      pengumuman = widget.pengumuman;
+    }));
+
+  }
+
+  @override
+  Future<Null> notifikasi()async{
+    final SharedPreferences prefs = await SharedPreferences.getInstance();
+    String userId = prefs.getString('id');
+    await http.get(linknya.urlbase + "app/clearnotif?userId="+ userId +"&menu=9" );
+  }
+
+  @override
+  Future<Null> notifikasi2()async{
+    final SharedPreferences prefs = await SharedPreferences.getInstance();
+    String userId = prefs.getString('id');
+    await http.get(linknya.urlbase + "app/clearnotif?userId="+ userId +"&menu=10" );
   }
 
  @override
@@ -129,14 +189,15 @@ class _BeritaPage extends State<BeritaPage> with SingleTickerProviderStateMixin{
               heightPercent: 100,
               child: TabBarView(
                 controller: knt,
+                physics: NeverScrollableScrollPhysics(),
                 children: <Widget>[
                   RefreshIndicator(
                     child: _list(),
-                    onRefresh: warta,
+                    onRefresh: _refreshberita,
                   ),
                   RefreshIndicator(
                     child: _list2(),
-                    onRefresh: warta,
+                    onRefresh: _refreshpengumuman,
                   ),
 
                 ],
@@ -162,8 +223,40 @@ class _BeritaPage extends State<BeritaPage> with SingleTickerProviderStateMixin{
     return TabBar(
       controller: knt,
       tabs: <Widget>[
-        Tab ( child: AutoSizeText('Pojok Warta LH',style: TextStyle(fontWeight: FontWeight.bold, fontSize: 16),), ),
-        Tab ( child: AutoSizeText('Pengumuman',style: TextStyle(fontWeight: FontWeight.bold, fontSize: 16),), ),
+        Tab ( child: Stack(alignment: Alignment.topRight, children: <Widget>[
+          AutoSizeText('Pojok Warta LH   ',style: TextStyle(fontWeight: FontWeight.bold, fontSize: 16),),
+          wartas <= 0 ? Padding(padding: EdgeInsets.all(0),) : Container(
+            width: 10,
+            height: 10,
+            padding: EdgeInsets.all(0),
+            margin: EdgeInsets.only(left: 10),
+
+            decoration: BoxDecoration(
+              color: Colors.red,
+              boxShadow:[ BoxShadow(color: Colors.grey, spreadRadius: 0.1,offset: Offset(1.0,3.0), blurRadius: 2)],
+              border: Border.all(color: Colors.red, width: 3),
+              borderRadius: BorderRadius.circular(10),
+            ),
+
+          )
+        ],) ),
+        Tab (  child: Stack(alignment: Alignment.topRight, children:<Widget>[
+           AutoSizeText('Pengumuman   ',style: TextStyle(fontWeight: FontWeight.bold, fontSize: 16, color: Colors.white),),
+          pengumuman <= 0 ? Padding(padding: EdgeInsets.all(0),) : Container(
+            width: 10,
+            height: 10,
+            padding: EdgeInsets.all(20),
+            margin: EdgeInsets.all(2),
+            alignment: Alignment.topLeft,
+            decoration: BoxDecoration(
+              color: Colors.red,
+              boxShadow:[ BoxShadow(color: Colors.grey, spreadRadius: 0.1,offset: Offset(1.0,3.0), blurRadius: 2)],
+              border: Border.all(color: Colors.red, width: 3),
+              borderRadius: BorderRadius.circular(10),
+            ),
+
+          )
+        ]), ),
       ],
     );
   }
@@ -175,6 +268,7 @@ class _BeritaPage extends State<BeritaPage> with SingleTickerProviderStateMixin{
         itemBuilder: (BuildContext context, int index)
     {
       if (index == Peng.length) {
+        notifikasi();
         return _buildProgressIndicator();
       }else{
             return InkWell(
@@ -250,10 +344,12 @@ class _BeritaPage extends State<BeritaPage> with SingleTickerProviderStateMixin{
 
   _list2(){
     return ListView.builder(
+
       itemCount: total == null? 1:total.length + 1 ,
       scrollDirection: Axis.vertical,
       itemBuilder: (BuildContext context, int index) {
       if (index == total.length) {
+        notifikasi2();
         return _buildProgressIndicator();
       }else {
         return InkWell(
@@ -310,7 +406,7 @@ class _BeritaPage extends State<BeritaPage> with SingleTickerProviderStateMixin{
                       decoration: new BoxDecoration(
                           borderRadius: new BorderRadius.circular(5),
                           image: new DecorationImage(
-                              image: NetworkImage('http://dlh-serangkota.com/upload/pengumuman/' + total[index]['foto'], scale: 1.0),
+                              image: NetworkImage(linknya.url + '/upload/pengumuman/' + total[index]['foto'], scale: 1.0),
                               fit: BoxFit.cover
                           )
                       ),

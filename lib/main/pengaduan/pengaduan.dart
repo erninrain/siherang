@@ -1,9 +1,13 @@
 
 
+import 'dart:convert';
 import 'dart:io';
 
 import 'package:auto_size_text/auto_size_text.dart';
+import 'package:dio/dio.dart';
+import 'package:dlh/animasi/animasi.dart';
 import 'package:dlh/animasi/constant.dart';
+import 'package:dlh/main/pengaduan/showpeng.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter_map/flutter_map.dart';
 import 'package:latlong/latlong.dart';
@@ -13,6 +17,7 @@ import 'package:intl/intl.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:datetime_picker_formfield/datetime_picker_formfield.dart';
 import 'package:responsive_container/responsive_container.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 class PengaduanMaps extends StatefulWidget{
 
@@ -22,12 +27,11 @@ class PengaduanMaps extends StatefulWidget{
 }
 
 class _PengaduanMaps extends State<PengaduanMaps>{
-  static final String uploadEndPoint =
-      'http://localhost/flutter_test/upload_image.php';
 
   double lokasiLat = -6.112387777530127;
   double lokasiLng = 106.141655479581237;
   bool mar = false;
+  bool loading = false;
   var tempat = TextEditingController();
   var nama = TextEditingController();
   var alamat = TextEditingController();
@@ -64,7 +68,6 @@ class _PengaduanMaps extends State<PengaduanMaps>{
     print(lks.text);
   }
 
-  Future<File> file;
   String status = '';
   String base64Image;
   String errMessage = 'Error Uploading Image';
@@ -74,7 +77,7 @@ class _PengaduanMaps extends State<PengaduanMaps>{
     setState(() {
     _image = image;
     });
-    print(_image);
+    //print(_image);
     setStatus('');
   }
 
@@ -91,17 +94,44 @@ class _PengaduanMaps extends State<PengaduanMaps>{
       return;
     }
     String fileName = _image.path.split('/').last;
-    upload(fileName);
+//    upload(fileName);
   }
 
-  upload(String fileName) {
-    http.post(uploadEndPoint, body: {
-      "image": base64Image,
-      "name": fileName,
-    }).then((result) {
-      setStatus(result.statusCode == 200 ? result.body : errMessage);
-    }).catchError((error) {
-      setStatus(error);
+  @override
+  upload() async {
+    setState((){
+      loading = true;
+    });
+    base64Image = base64Encode(_image.readAsBytesSync());
+    final SharedPreferences prefs = await SharedPreferences.getInstance();
+    String userId = prefs.getString('id');
+    print('ok');
+    Dio dio = new Dio();
+    FormData data = FormData.fromMap({
+      'userId': userId,
+      'tempat': tempat.text,
+      'nama': nama.text,
+      'alamat': alamat.text,
+      'nohp': nohp.text,
+      'alamatkejadian': alamatkejadian.text,
+      'jeniskegiatan': jenis.text,
+      'namakegiatan': namakegiatan.text,
+      'waktu': waktu.text,
+      'uraiankejadian': uraian.text,
+      'dampak': dampak.text,
+      'penyelesaian': penyelesaian.text,
+      'namainstansi': instansi1.text,
+      'namainstansi2': instansi2.text,
+      'namainstansi3': instansi3.text,
+      'tglpengaduan': tanggal1.text,
+      'tglpengaduan2': tanggal2.text,
+      'tglpengaduan3': tanggal3.text,
+      'lokasi': lks.text,
+      "foto": await MultipartFile.fromFile(_image.path),
+    });
+    dio.post(linknya.urlbase +"app/pengaduan", data: data);
+    setState(() {
+      loading = false;
     });
   }
 
@@ -112,7 +142,7 @@ class _PengaduanMaps extends State<PengaduanMaps>{
         title: ResponsiveContainer(widthPercent: 60,heightPercent: 4.5, child: Text('Pengaduan', style: TextStyle(fontWeight: FontWeight.bold, fontSize: 22), textAlign: TextAlign.center,),),
         backgroundColor: ColorPalette.underlineTextField,
       ),
-      body: ResponsiveContainer(
+      body:loading == true ? _buildProgressIndicator() : ResponsiveContainer(
         widthPercent: 100,
         heightPercent: 100,
         child: Container(
@@ -806,7 +836,7 @@ class _PengaduanMaps extends State<PengaduanMaps>{
                 child: FlutterMap(
                   options: MapOptions(
                     center: LatLng(lokasiLat, lokasiLng),
-                    zoom: 16.0,
+                    zoom: 12.0,
                     onTap: (LatLng){
                       _test(lokasiLat = LatLng.latitude, lokasiLng = LatLng.longitude);
                     }
@@ -823,7 +853,10 @@ class _PengaduanMaps extends State<PengaduanMaps>{
               ),
               _padding(),
               FlatButton(
-                onPressed: (){},
+                onPressed: (){
+                  upload();
+                  Navigator.pushReplacement(context, SlideLeftRoute(page: PengPage()));
+                },
                 color: ColorPalette.underlineTextField,
                 child: AutoSizeText('Kirim',style: TextStyle(color: Colors.white, fontWeight: FontWeight.bold),),
               ),
@@ -846,13 +879,21 @@ class _PengaduanMaps extends State<PengaduanMaps>{
       height: 80.0,
       point: new LatLng(lokasiLat, lokasiLng),
       builder: (context) => new Container(
-          child: new FlatButton(
-              onPressed: (){print('ok');},
-              child: Icon(
-                Icons.location_on,color: Colors.red, size: 50.0,)
-          )
+          child:  Icon(
+                Icons.my_location,color: Colors.red, size: 20.0,)
       ),
     );
   }
 
+  _buildProgressIndicator() {
+    return new Padding(
+      padding: const EdgeInsets.all(8.0),
+      child: new Center(
+        child: new Opacity(
+          opacity: loading ? 1.0 : 00,
+          child: new CircularProgressIndicator(),
+        ),
+      ),
+    );
+  }
 }

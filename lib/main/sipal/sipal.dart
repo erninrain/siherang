@@ -23,6 +23,7 @@ class _sipalPage extends State<sipalPage>{
   ScrollController _scroll2Controller = new ScrollController();
   var progress;
 
+  @override
   Future<void> _downloadfile(urlnya)async {
     Dio dio = Dio();
     setState(() {
@@ -47,7 +48,7 @@ class _sipalPage extends State<sipalPage>{
     });
   }
 
-
+  @override
   Future<void> kaon() async {
     final response = await http.get(linknya.urlbase + "app/cek/sipal" );
     var jsson = jsonDecode(response.body);

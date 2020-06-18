@@ -15,10 +15,13 @@ class _LinkPage extends State<LinkPage>{
 
   InAppWebViewController webView;
   double progress = 0;
+
+  @override
   Future<void> refresh() {
     widget.tit = widget.tit;
     widget.ur = widget.ur;
   }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(

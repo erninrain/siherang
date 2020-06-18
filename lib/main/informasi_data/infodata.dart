@@ -10,6 +10,7 @@ import 'package:intl/intl.dart';
 import 'package:path_provider/path_provider.dart';
 import 'package:responsive_container/responsive_container.dart';
 import 'package:http/http.dart' as http;
+import 'package:shared_preferences/shared_preferences.dart';
 
 import '../artikelpage.dart';
 
@@ -30,9 +31,18 @@ class _InfoData extends State<InfoData>{
   var progressLo = "";
   ScrollController _scroll2Controller = new ScrollController();
   int _counterpe = 1;
+
+  @override
+  Future<Null> notifikasi()async{
+    final SharedPreferences prefs = await SharedPreferences.getInstance();
+    String userId = prefs.getString('id');
+    await http.get(linknya.urlbase + "app/clearnotif?userId="+ userId +"&menu=8" );
+  }
+
   @override
   void initState() {
     super.initState();
+    notifikasi();
     kaon();
     _scroll2Controller.addListener((){
       if(_scroll2Controller.position.pixels == _scroll2Controller.position.maxScrollExtent)
@@ -41,6 +51,7 @@ class _InfoData extends State<InfoData>{
 
   }
 
+  @override
   Future<void> _incrementpe() async {
     setState(() {
       _counterpe++;
@@ -56,6 +67,7 @@ class _InfoData extends State<InfoData>{
     });
   }
 
+  @override
   Future<void> kaon() async {
     setState(() {
       loading=true;
@@ -69,6 +81,7 @@ class _InfoData extends State<InfoData>{
     });
   }
 
+  @override
   Future<void> _downloadfile(urlnya)async{
     Dio dio = Dio();
 
@@ -93,6 +106,7 @@ class _InfoData extends State<InfoData>{
     print('download selesai');
   }
 
+  @override
   Future<void> _showdownload() {
     // flutter defined function
     showDialog(

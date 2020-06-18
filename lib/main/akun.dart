@@ -23,12 +23,14 @@ class _AkunPage extends State<AkunPage>{
   String email='';
   String nohp='';
   bool isLoading = false;
+
   @override
   void initState() {
     super.initState();
     datamenu();
   }
 
+  @override
   Future<void> datamenu() async {
     if (!isLoading) {
       setState(() {
@@ -98,7 +100,7 @@ class _AkunPage extends State<AkunPage>{
               borderRadius: BorderRadius.circular(80),
                   color: Colors.white,
                   image: DecorationImage(
-                    image:  AssetImage('asset/s1.png'),
+                    image:  AssetImage('asset/siherang.png'),
                   ),
             ),
             //child: Image(image: AssetImage('asset/s1.png'), ),

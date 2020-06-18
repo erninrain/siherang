@@ -46,6 +46,8 @@ class _SplashScreenPageState extends State<SplashScreenPage>{
   String userId = '';
 
   @override
+
+  @override
   void initState() {
     super.initState();
 
@@ -53,6 +55,7 @@ class _SplashScreenPageState extends State<SplashScreenPage>{
     autoLogIn();
   }
 
+  @override
   void autoLogIn() async {
     try {
         if (!isLoading) {
@@ -123,8 +126,8 @@ class _SplashScreenPageState extends State<SplashScreenPage>{
       );
     });
   }
-  @override
 
+  @override
   Widget build(BuildContext context){
 
     return Scaffold(
@@ -137,14 +140,14 @@ class _SplashScreenPageState extends State<SplashScreenPage>{
               widthPercent: 55,
               heightPercent: 30,
               child: Image.asset(
-                "asset/siherannnggg.png",
+                "asset/siherang.png",
                   fit: BoxFit.cover,
               ),
             ),
             Padding(padding: EdgeInsets.only(top: 15)),
             Padding(
               padding: EdgeInsets.all(20),
-              child: Text('SISTEM APLIKASI DINAS LINGKUNGAN HIDUP KOTA SERANG', textAlign: TextAlign.center, style: TextStyle(fontSize: 18, color: ColorPalette.underlineTextField, fontWeight: FontWeight.bold),),
+              child: Text('APLIKASI DINAS LINGKUNGAN HIDUP KOTA SERANG', textAlign: TextAlign.center, style: TextStyle(fontSize: 18, color: ColorPalette.underlineTextField, fontWeight: FontWeight.bold),),
             ),
             Padding(padding: EdgeInsets.only(top: 25)),
             _buildProgressIndicator()
@@ -206,14 +209,12 @@ class Utama extends StatelessWidget{
           borderRadius: BorderRadius.only(bottomLeft: const Radius.circular(70.0) ),
         ),
         child: Image.asset(
-          "asset/siherannnggg.png",
+          "asset/siherang.png",
           fit: BoxFit.contain,
         ),
       ),
     );
   }
-
-
 
   Widget _buildButton(BuildContext context){
     return Column(

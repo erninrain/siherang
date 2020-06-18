@@ -18,7 +18,6 @@ class MenuTk extends StatefulWidget {
 
 class _MenuTk extends State<MenuTk>  {
 
-  var URL = "https://google.com";
   int _counter = 0;
   String nmmenu='';
   InAppWebViewController webView;
@@ -35,12 +34,7 @@ class _MenuTk extends State<MenuTk>  {
     });
   }
 
-  void _go(){}
-
-  void _jmlh() {
-    Navigator.of(context).pushNamed('/jmlhpnsthl');
-  }
-
+  @override
   Future<void> stru() async{
     webView.reload();
   }
@@ -121,7 +115,7 @@ class _MenuTk extends State<MenuTk>  {
                 </tr>
                 <tr>
                     <td>
-                        <p>Bersama Menjaga Kualitas Lingkungan Hidup Kota Serang</p></td>
+                        <p>"Terwujudnya Kota Peradaban yang Berdaya dan Berbudaya</p></td>
 
                 </tr>
                 <tr>
@@ -129,16 +123,19 @@ class _MenuTk extends State<MenuTk>  {
                 </tr>
                 <tr>
                     <td align="left">
-                        Meningkatkan kapasitas dan akuntabilitas.<br><br>
-                        Meningkatkan kualitas lingkungan hidup dan pengelolaan sumberdaya alam<br>
-                        <p style="text-align: justify">Meningkatkan kemampuan, kesadaran, kepedulian, dan partisipasi para pemangku kepentingan terhadap fungsi lingkungan hidup </p></td>
+                        Menguatkan Peradaban Berbasis Nilai-Nilai Kemanusiaan.<br><br>
+                        Meningkatkan Sarana Prasarana Daerah yang Berwawasan Lingkungan.<br>
+                        <p style="text-align: justify">Meningkatkan Perekonomian Daerah dan Pemberdayaan Masyarakat yang Berdaya Saing. </p><br>
+                        <p>Meningkatkan Tata Kelola Pemerintahan yang Baik  .</p>
+                        </td>
 
                 </tr>
             </table>            
           ''',
             webView: true,
             unsupportedWebViewWorkaroundForIssue37: true,
-          )
+          ),
+
         ], padding: EdgeInsets.all(10)),
         ListView(children: <Widget>[
           HtmlWidget(
@@ -207,51 +204,32 @@ class _MenuTk extends State<MenuTk>  {
                       },
                       child:_btnmnu(nmmenu = 'PEP dan Keuangan'),
                     ),
+//                    FlatButton(
+//                      padding: EdgeInsets.only(left: 5,right: 5),
+//                      onPressed: (){
+//                        webView.reload();
+//                        webView.loadUrl(linknya.url + 'mobile/ppklh');
+//                      },
+//                      child:_btnmnu(nmmenu = 'Bidang Pengendalian'),
+//                    ),
 
-                    FlatButton(
-                      padding: EdgeInsets.only(left: 5,right: 5),
-                      onPressed: (){
-                        webView.reload();
-                        webView.loadUrl(linknya.url + 'mobile/pplh');
-                      },
-                      child:_btnmnu(nmmenu = 'Bidang Penataan dan Penaatan'),
-                    ),
-
-                    FlatButton(
-                      padding: EdgeInsets.only(left: 5,right: 5),
-                      onPressed: (){
-                        webView.reload();
-                        webView.loadUrl(linknya.url + 'mobile/pslb');
-                      },
-                      child:_btnmnu(nmmenu = 'Bidang Pengelolaan'),
-                    ),
-
-                    FlatButton(
-                      padding: EdgeInsets.only(left: 5,right: 5),
-                      onPressed: (){
-                        webView.reload();
-                        webView.loadUrl(linknya.url + 'mobile/ppklh');
-                      },
-                      child:_btnmnu(nmmenu = 'Bidang Pengendalian'),
-                    ),
-
-                    FlatButton(
-                      padding: EdgeInsets.only(left: 5,right: 5),
-                      onPressed: (){
-                        webView.reload();
-                        webView.loadUrl(linknya.url + 'mobile/uptlab');
-                      },
-                      child:_btnmnu(nmmenu = 'UPTD Laboratorium'),
-                    ),
-
-                    FlatButton(
-                      padding: EdgeInsets.only(left: 5,right: 5),
-                      onPressed: (){
-                        webView.reload();
-                        webView.loadUrl(linknya.url + 'mobile/uptperbekalan');
-                      },
-                      child:_btnmnu(nmmenu = 'UPTD Perlengkapan'),
-                    ),
+//                    FlatButton(
+//                      padding: EdgeInsets.only(left: 5,right: 5),
+//                      onPressed: (){
+//                        webView.reload();
+//                        webView.loadUrl(linknya.url + 'mobile/uptlab');
+//                      },
+//                      child:_btnmnu(nmmenu = 'UPTD Laboratorium'),
+//                    ),
+//
+//                    FlatButton(
+//                      padding: EdgeInsets.only(left: 5,right: 5),
+//                      onPressed: (){
+//                        webView.reload();
+//                        webView.loadUrl(linknya.url + 'mobile/uptperbekalan');
+//                      },
+//                      child:_btnmnu(nmmenu = 'UPTD Perlengkapan'),
+//                    ),
 
                     FlatButton(
                       padding: EdgeInsets.only(left: 5,right: 5),

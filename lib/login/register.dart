@@ -30,6 +30,8 @@ class _RegisterPage extends State<RegisterPage>{
   TextEditingController pass=new TextEditingController();
   TextEditingController cpass=new TextEditingController();
   String mse ='';
+
+  @override
   Future<List> _register() async {
     setState(() {
       loading = true;
@@ -104,6 +106,7 @@ class _RegisterPage extends State<RegisterPage>{
       loading = false;
     });
   }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(

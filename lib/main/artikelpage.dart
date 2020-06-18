@@ -38,6 +38,7 @@ class _ArtikelPage extends State<ArtikelPage>{
     berita();
   }
 
+  @override
   Future<void> berita() async {
     if (!isLoading) {
         setState(() {

@@ -11,7 +11,7 @@ description: A new Flutter project.
 # In iOS, build-name is used as CFBundleShortVersionString while build-number used as CFBundleVersion.
 # Read more about iOS versioning at
 # https://developer.apple.com/library/archive/documentation/General/Reference/InfoPlistKeyReference/Articles/CoreFoundationKeys.html
-version: 1.0.0+1
+version: 2.1.0
 
 environment:
   sdk: ">=2.1.0 <3.0.0"
@@ -28,6 +28,7 @@ dependencies:
   curved_navigation_bar: ^0.3.1
   datetime_picker_formfield: ^1.0.0
   dio: ^3.0.8
+  file_picker: 1.12.0
   flutter_launcher_icons: "^0.7.0"
   flutter_map: any
   flutter_html: ^0.11.1
@@ -43,7 +44,9 @@ dependencies:
   responsive_container:
   rflutter_alert: ^1.0.3
   shared_preferences: ^0.5.6
+  url_launcher: ^5.4.1
   vertical_tabs: ^0.1.4
+
 
 
 dev_dependencies:
@@ -54,8 +57,8 @@ flutter_launcher_name:
    name: "DLH Kota Serang"
 
 flutter_icons:
-  image_path: "asset/siherannnggg.png"
-  image_path_android: 'asset/siherannnggg.png'
+  image_path: "asset/siherang.png"
+  image_path_android: 'asset/siherang.png'
   image_path_ios: 'asset/s1.png'
   android: true # can specify file name here e.g. "ic_launcher"
   ios: true # can specify file name here e.g. "My-Launcher-Icon"
@@ -76,6 +79,7 @@ flutter:
   assets:
     - asset/
     - asset/img/
+    - asset/icon/
   # An image asset can refer to one or more resolution-specific "variants", see
   # https://flutter.dev/assets-and-images/#resolution-aware.
 
