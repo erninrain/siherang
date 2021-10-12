@@ -40,6 +40,7 @@ dependencies:
   intl: ^0.16.0
   image_picker: ^0.6.3+1
   path_provider: 1.5.1
+
   random_pk: any
   responsive_container:
   rflutter_alert: ^1.0.3
