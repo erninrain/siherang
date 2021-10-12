@@ -8,7 +8,7 @@ import 'package:dlh/animasi/constant.dart';
 import 'package:dlh/main/pengaduan/detailpeng.dart';
 import 'package:file_picker/file_picker.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_inappbrowser/flutter_inappbrowser.dart';
+import 'package:flutter_inappwebview/flutter_inappwebview.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:intl/intl.dart';
 import 'package:path_provider/path_provider.dart';
@@ -282,22 +282,16 @@ class _uklPage extends State<uklPage>{
           child: RefreshIndicator(
             onRefresh: kaon,
             child: InAppWebView(
-              initialUrl: widget.ur,
-              initialHeaders: {
-
-              },
-              initialOptions: {
-
-              },
+              initialUrlRequest: URLRequest(url: Uri.parse( widget.ur)),
               onWebViewCreated: (InAppWebViewController controller) {
                 webView = controller;
               },
-              onLoadStart: (InAppWebViewController controller, String url) {
-                print("started $widget.ur");
-                setState(() {
-                  widget.ur = widget.ur;
-                });
-              },
+//              onLoadStart: (InAppWebViewController controller, String url) {
+//                print("started $widget.ur");
+//                setState(() {
+//                  widget.ur = widget.ur;
+//                });
+//              },
               onProgressChanged: (InAppWebViewController controller, int progress) {
                 setState(() {
                   this.progressLo = progress/100;

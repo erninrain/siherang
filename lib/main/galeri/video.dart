@@ -1,6 +1,6 @@
 import 'package:dlh/animasi/constant.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_inappbrowser/flutter_inappbrowser.dart';
+import 'package:flutter_inappwebview/flutter_inappwebview.dart';
 import 'package:flutter_widget_from_html/flutter_widget_from_html.dart';
 import 'package:responsive_container/responsive_container.dart';
 
@@ -55,22 +55,16 @@ class _VideoPage extends State<VideoPage>{
           child: RefreshIndicator(
             onRefresh: refresh,
             child: InAppWebView(
-              initialUrl: "https://dlh-serangkota.com/api/app/video/" + widget.ur.toString(),
-              initialHeaders: {
-
-              },
-              initialOptions: {
-
-              },
+              initialUrlRequest: URLRequest(url: Uri.parse("https://dlh-serangkota.com/api/app/video/" + widget.ur.toString())),
               onWebViewCreated: (InAppWebViewController controller) {
                 webView = controller;
               },
-              onLoadStart: (InAppWebViewController controller, String url) {
-                print("started $widget.ur");
-                setState(() {
-                  widget.ur = widget.ur;
-                });
-              },
+//              onLoadStart: (InAppWebViewController controller, String url) {
+//                print("started $widget.ur");
+//                setState(() {
+//                  widget.ur = widget.ur;
+//                });
+//              },
               onProgressChanged: (InAppWebViewController controller, int progress) {
                 setState(() {
                   this.progress = progress/100;

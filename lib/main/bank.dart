@@ -1,6 +1,6 @@
 import 'package:dlh/animasi/constant.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_inappbrowser/flutter_inappbrowser.dart';
+import 'package:flutter_inappwebview/flutter_inappwebview.dart';
 import 'package:responsive_container/responsive_container.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:http/http.dart' as http;
@@ -57,22 +57,16 @@ class _BankPage extends State<BankPage>{
           child: RefreshIndicator(
             onRefresh: refresh,
             child: InAppWebView(
-              initialUrl: widget.ur,
-              initialHeaders: {
-
-              },
-              initialOptions: {
-
-              },
+              initialUrlRequest: URLRequest(url: Uri.parse( widget.ur)),
               onWebViewCreated: (InAppWebViewController controller) {
                 webView = controller;
               },
-              onLoadStart: (InAppWebViewController controller, String url) {
-                print("started $widget.ur");
-                setState(() {
-                  widget.ur = widget.ur;
-                });
-              },
+//              onLoadStart: (InAppWebViewController controller, String url) {
+//                print("started $widget.ur");
+//                setState(() {
+//                  widget.ur = widget.ur;
+//                });
+//              },
               onProgressChanged: (InAppWebViewController controller, int progress) {
                 setState(() {
                   this.progress = progress/100;

@@ -5,7 +5,7 @@ import 'package:dlh/main/akun.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_inappbrowser/flutter_inappbrowser.dart';
+import 'package:flutter_inappwebview/flutter_inappwebview.dart';
 import 'package:flutter_widget_from_html/flutter_widget_from_html.dart';
 import 'package:responsive_container/responsive_container.dart';
 import 'package:vertical_tabs/vertical_tabs.dart';
@@ -175,7 +175,7 @@ class _MenuTk extends State<MenuTk>  {
                       padding: EdgeInsets.only(left: 5,right: 5),
                       onPressed: (){
                         webView.reload();
-                        webView.loadUrl(linknya.url + 'mobile/kadis');
+                        webView.loadUrl(urlRequest: URLRequest(url:Uri.parse(linknya.url + 'mobile/kadis')));
                       },
                       child: _btnmnu(nmmenu = 'Kepala Dinas'),
                     ),
@@ -183,7 +183,7 @@ class _MenuTk extends State<MenuTk>  {
                       padding: EdgeInsets.only(left: 5,right: 5),
                       onPressed: (){
                         webView.reload();
-                        webView.loadUrl(linknya.url + 'mobile/sekdis');
+                        webView.loadUrl(urlRequest: URLRequest(url:Uri.parse(linknya.url + 'mobile/sekdis')));
                       },
                       child:_btnmnu(nmmenu = 'Sekretaris'),
                     ),
@@ -191,7 +191,7 @@ class _MenuTk extends State<MenuTk>  {
                       padding: EdgeInsets.only(left: 5,right: 5),
                       onPressed: (){
                         webView.reload();
-                        webView.loadUrl(linknya.url + 'mobile/unpeg');
+                        webView.loadUrl(urlRequest: URLRequest(url:Uri.parse(linknya.url + 'mobile/unpeg')));
                       },
                       child:_btnmnu(nmmenu = 'Umum dan Kepegawaian'),
                     ),
@@ -200,7 +200,7 @@ class _MenuTk extends State<MenuTk>  {
                       padding: EdgeInsets.only(left: 5,right: 5),
                       onPressed: (){
                         webView.reload();
-                        webView.loadUrl(linknya.url + 'mobile/pep');
+                        webView.loadUrl(urlRequest: URLRequest(url:Uri.parse(linknya.url + 'mobile/pep')));
                       },
                       child:_btnmnu(nmmenu = 'PEP dan Keuangan'),
                     ),
@@ -235,7 +235,7 @@ class _MenuTk extends State<MenuTk>  {
                       padding: EdgeInsets.only(left: 5,right: 5),
                       onPressed: (){
                         webView.reload();
-                        webView.loadUrl(linknya.url + 'mobile/jabatan');
+                        webView.loadUrl(urlRequest: URLRequest(url:Uri.parse(linknya.url + 'mobile/jabatan')));
                       },
                       child:_btnmnu(nmmenu = 'Kelompok Jabatan Fungsional'),
                     ),
@@ -277,22 +277,16 @@ class _MenuTk extends State<MenuTk>  {
 
   Widget _kadis(){
     return InAppWebView(
-        initialUrl: kons,
-        initialHeaders: {
-
-        },
-        initialOptions: {
-
-        },
+      initialUrlRequest: URLRequest(url: Uri.parse( kons)),
         onWebViewCreated: (InAppWebViewController controller) {
           webView = controller;
         },
-        onLoadStart: (InAppWebViewController controller, String url) {
-          print("started $kons");
-          setState(() {
-            this.kons = kons;
-          });
-        },
+//        onLoadStart: (InAppWebViewController controller, String url) {
+//          print("started $kons");
+//          setState(() {
+//            this.kons = kons;
+//          });
+//        },
         onProgressChanged: (InAppWebViewController controller, int progress) {
           setState(() {
             this.progress = progress/100;

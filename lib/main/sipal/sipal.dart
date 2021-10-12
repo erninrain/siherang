@@ -4,7 +4,7 @@ import 'package:auto_size_text/auto_size_text.dart';
 import 'package:dio/dio.dart';
 import 'package:dlh/animasi/constant.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_inappbrowser/flutter_inappbrowser.dart';
+import 'package:flutter_inappwebview/flutter_inappwebview.dart';
 import 'package:path_provider/path_provider.dart';
 import 'package:responsive_container/responsive_container.dart';
 import 'package:http/http.dart' as http;
@@ -114,7 +114,7 @@ class _sipalPage extends State<sipalPage>{
     return Padding(
         padding: EdgeInsets.only(top: 10),
           child: InAppWebView(
-            initialUrl: linknya.url + "mobile/sipal",
+            initialUrlRequest: URLRequest(url: Uri.parse( linknya.url + "mobile/sipal")),
            )
         ) ;
   }
